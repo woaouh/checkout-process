@@ -7,3 +7,11 @@
 $ make install
 $ make start
 ```
+
+## Project implementation
+
+In process...
+
+## Links
+
+* [Test task](https://github.com/fs/test-tasks/tree/master/front-end)
