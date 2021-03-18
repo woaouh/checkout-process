@@ -1,22 +1,19 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import styles from './index.module.sass';
 
-export default function Crumb({ stage, activeStage }) {
+export default function Crumb({ stage, route }) {
   return (
-    <li
-      key={stage}
-      className={classNames(styles.crumb, {
-        [styles.active]: activeStage === stage,
-      })}
-    >
-      {stage}
+    <li key={stage} className={styles.crumb}>
+      <NavLink to={route} activeClassName={styles.active} exact>
+        {stage}
+      </NavLink>
     </li>
   );
 }
 
 Crumb.propTypes = {
   stage: PropTypes.string.isRequired,
-  activeStage: PropTypes.string.isRequired,
+  route: PropTypes.string.isRequired,
 };
