@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import classNames from 'classnames';
 import styles from './index.module.sass';
 
-import { setShippingInfo } from '../../redux/checkoutSlice';
+import { setShippingInfo, completeStep } from '../../redux/checkoutSlice';
 import ShippingForm from './ShippingForm';
 import BillingForm from './BillingForm';
 import PaymentForm from './PaymentForm';
@@ -11,44 +12,52 @@ import CompletedOrder from './CompletedOrder';
 
 export default function Form() {
   const dispatch = useDispatch();
+  const activeStep = useSelector(({ checkout }) => checkout.activeStep);
   const { register, handleSubmit } = useForm();
-  const [step, setStep] = useState(0);
-
-  function completeStep() {
-    setStep((cur) => cur + 1);
-  }
 
   function onClickHandler() {
-    completeStep();
+    dispatch(completeStep());
   }
 
   function onSubmitHandler(data) {
     dispatch(setShippingInfo(data));
-    completeStep();
+    dispatch(completeStep());
   }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmitHandler)}>
 
-      {step >= 0 && (
-        <div style={step !== 0 ? { display: 'none' } : { display: 'block' }}>
+      {activeStep >= 0 && (
+        <div
+          className={classNames({
+            [styles.hidden]: activeStep !== 0,
+          })}
+        >
           <ShippingForm handler={onClickHandler} register={register} />
         </div>
       )}
 
-      {step >= 1 && (
-        <div style={step !== 1 ? { display: 'none' } : { display: 'block' }}>
+      {activeStep >= 1 && (
+        <div
+          className={classNames({
+            [styles.hidden]: activeStep !== 1,
+          })}
+        >
           <BillingForm handler={onClickHandler} register={register} />
         </div>
       )}
 
-      {step === 2 && (
-        <div style={step !== 2 ? { display: 'none' } : { display: 'block' }}>
+      {activeStep === 2 && (
+        <div
+          className={classNames({
+            [styles.hidden]: activeStep !== 2,
+          })}
+        >
           <PaymentForm register={register} />
         </div>
       )}
 
-      {step === 3 && (
+      {activeStep === 3 && (
         <CompletedOrder />
       )}
 
