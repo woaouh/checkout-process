@@ -13,22 +13,6 @@ export const checkoutSlice = createSlice({
       country: '',
       zip: '',
     },
-    billingInfo: {
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-      apartment: '',
-      city: '',
-      country: '',
-      zip: '',
-    },
-    paymentInfo: {
-      cardholderName: '',
-      cardNumber: '',
-      expireDate: '',
-      securityCode: '',
-    },
   },
   reducers: {
     setShippingInfo(state, action) {

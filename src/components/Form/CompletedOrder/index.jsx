@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styles from './index.module.sass';
 
 export default function CompletedOrder() {
-  const userEmail = useSelector(({ checkout }) => checkout.billingInfo.email);
+  const userEmail = useSelector(({ checkout }) => checkout.userInfo.billing.email);
 
   return (
     <div className={styles.completedOrder}>
