@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import styles from './index.module.sass';
 
 export default function Select({
-  name, options, register, required,
+  name, defaultValue, options, register, required,
 }) {
   return (
-    <select name={name} className={styles.select} defaultValue="" ref={register({ required })} required>
+    <select
+      name={name}
+      className={styles.select}
+      defaultValue={defaultValue}
+      ref={register({ required })}
+      required
+    >
       <option value="" disabled>Country</option>
       {options.map((option) => <option key={option} value={option}>{option}</option>)}
     </select>
@@ -15,6 +21,7 @@ export default function Select({
 
 Select.propTypes = {
   name: PropTypes.string.isRequired,
+  defaultValue: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   register: PropTypes.func.isRequired,
   required: PropTypes.bool,
@@ -22,4 +29,5 @@ Select.propTypes = {
 
 Select.defaultProps = {
   required: false,
+  defaultValue: '',
 };

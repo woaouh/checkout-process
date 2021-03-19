@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import styles from './index.module.sass';
 
 export default function Input({
-  type, name, placeholder, register, required,
+  type, name, defaultValue, placeholder, register, required,
 }) {
   return (
     <input
       className={styles.input}
       name={name}
       type={type}
+      defaultValue={defaultValue}
       placeholder={placeholder}
       ref={register({ required })}
       required
@@ -20,6 +21,7 @@ export default function Input({
 Input.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  defaultValue: PropTypes.string,
   placeholder: PropTypes.string.isRequired,
   register: PropTypes.func.isRequired,
   required: PropTypes.bool,
@@ -27,4 +29,5 @@ Input.propTypes = {
 
 Input.defaultProps = {
   required: false,
+  defaultValue: '',
 };
