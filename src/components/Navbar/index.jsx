@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
 import { ReactComponent as Cart } from '../../assets/svg/cart.svg';
 import styles from './index.module.sass';
@@ -12,9 +11,7 @@ export default function Navbar() {
         <div className={styles.wrapper}>
           <div className={styles.left}>
             <div className={styles.logoContainer}>
-              <Link to="/">
-                <Logo />
-              </Link>
+              <Logo />
             </div>
             <h1>Front-end Developer Test Task</h1>
           </div>
