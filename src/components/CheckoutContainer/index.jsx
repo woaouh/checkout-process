@@ -11,7 +11,7 @@ import CompletedOrder from '../Form/CompletedOrder';
 export default function CheckoutContainer() {
   return (
     <Container>
-      <div className={styles.checkoutContainer}>
+      <section className={styles.checkoutContainer}>
         <div className={styles.right}>
           <BreadCrumbs />
           <Route exact path="/" component={ShippingForm} />
@@ -22,7 +22,7 @@ export default function CheckoutContainer() {
         <div className={styles.left}>
           Products
         </div>
-      </div>
+      </section>
     </Container>
   );
 }
