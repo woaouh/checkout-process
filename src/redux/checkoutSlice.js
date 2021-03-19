@@ -40,7 +40,6 @@ export const checkoutSlice = createSlice({
       state.paymentInfo = action.payload;
     },
   },
-  extraReducers: {},
 });
 
 export const { setShippingInfo, setBillingInfo, setPaymentInfo } = checkoutSlice.actions;
