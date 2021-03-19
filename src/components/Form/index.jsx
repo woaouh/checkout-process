@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form';
 import styles from './index.module.sass';
 
 import { setShippingInfo } from '../../redux/checkoutSlice';
-import ShippingForm from '../ShippingForm';
-import BillingForm from '../BillingForm';
-import PaymentForm from '../PaymentForm';
-import CompletedOrder from '../CompletedOrder';
+import ShippingForm from './ShippingForm';
+import BillingForm from './BillingForm';
+import PaymentForm from './PaymentForm';
+import CompletedOrder from './CompletedOrder';
 
 export default function Form() {
   const dispatch = useDispatch();
