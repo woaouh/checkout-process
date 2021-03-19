@@ -1,20 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import Crumb from './Crumb';
 import styles from './index.module.sass';
 
 const stages = [
-  { name: 'Shipping', step: 0 },
-  { name: 'Billing', step: 1 },
-  { name: 'Payment', step: 2 },
+  { name: 'Shipping', path: '/', exact: true },
+  { name: 'Billing', path: '/billing', exact: false },
+  { name: 'Payment', path: '/payment', exact: false },
 ];
 
 export default function BreadCrumbs() {
-  const activeStep = useSelector(({ checkout }) => checkout.activeStep);
   return (
     <ul className={styles.breadCrumbs}>
       {stages.map((stage) => (
-        <Crumb key={stage.step} step={stage.step} stage={stage.name} activeStep={activeStep} />
+        <Crumb key={stage.name} stage={stage.name} path={stage.path} exact={stage.exact} />
       ))}
     </ul>
   );
