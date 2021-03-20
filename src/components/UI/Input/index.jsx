@@ -21,7 +21,10 @@ export default function Input({
 Input.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  defaultValue: PropTypes.string,
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   placeholder: PropTypes.string.isRequired,
   register: PropTypes.func.isRequired,
   required: PropTypes.bool,
