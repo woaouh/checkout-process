@@ -7,6 +7,7 @@ import ShippingForm from '../Form/ShippingForm';
 import BillingForm from '../Form/BillingForm';
 import PaymentForm from '../Form/PaymentForm';
 import CompletedOrder from '../Form/CompletedOrder';
+import OrderSummary from '../OrderSummary';
 
 export default function CheckoutContainer() {
   return (
@@ -20,7 +21,7 @@ export default function CheckoutContainer() {
           <Route path="/completed-order" component={CompletedOrder} />
         </div>
         <div className={styles.left}>
-          Products
+          <OrderSummary />
         </div>
       </section>
     </Container>
