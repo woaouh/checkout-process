@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './index.module.sass';
+import classes from './index.module.scss';
 
 export default function Container({ children }) {
-  return <div className={styles.container}>{children}</div>;
+  return <div className={classes.container}>{children}</div>;
 }
 
 Container.propTypes = {
