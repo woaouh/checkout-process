@@ -1,0 +1,51 @@
+.form {
+  color: #5a1094;
+
+  h2 {
+    font-size: 26px;
+    font-weight: 300;
+    margin: 20px 0 4px;
+  }
+
+  .label {
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 6px;
+  }
+
+  input {
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-top: 10px;
+  }
+
+  .title_container {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      background-color: transparent;
+      border: 0;
+      color: #5a1094;
+      font-size: 12px;
+      margin-top: 21px;
+      text-decoration: underline;
+    }
+  }
+
+  .input_container {
+    display: flex;
+
+    select {
+      margin-right: 20px;
+      max-width: 180px;
+    }
+
+    input {
+      max-width: 120px;
+    }
+  }
+}
