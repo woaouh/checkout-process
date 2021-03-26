@@ -1,0 +1,17 @@
+.select {
+  background-color: #fff;
+  border: 1px solid #dedcdc;
+  border-radius: 5px;
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  max-height: 42px;
+  max-width: 320px;
+  padding: 11px 15px;
+  width: 100%;
+
+  &:invalid {
+    color: #6b6b6b;
+    font-weight: 300;
+  }
+}

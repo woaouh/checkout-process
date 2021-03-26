@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './index.module.sass';
+import classes from './index.module.scss';
 
 export default function Select({
   name, defaultValue, options, register, required,
@@ -8,7 +8,7 @@ export default function Select({
   return (
     <select
       name={name}
-      className={styles.select}
+      className={classes.select}
       defaultValue={defaultValue}
       ref={register({ required })}
       required
