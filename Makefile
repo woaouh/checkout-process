@@ -1,15 +1,20 @@
 install:
-	npm install
+	npm ci
 
 start:
 	npm start
 
 lint:
-	./node_modules/.bin/eslint . --ext .js --ext .jsx
+	npm run lint
+
+lint-styles:
+	npm run lint-styles
+
+lint-styles-fix:
+	npm run lint-styles-fix
 
 test:
 	npm test
 
-push:
-	./node_modules/.bin/eslint . --ext .js --ext .jsx
+push: lint lint-styles
 	git push
