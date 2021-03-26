@@ -1,0 +1,49 @@
+.form {
+  color: #5a1094;
+
+  h2 {
+    font-size: 26px;
+    font-weight: 300;
+    margin: 20px 0;
+  }
+
+  .subtitle_container {
+    align-items: center;
+    color: #6b6b6b;
+    display: flex;
+    font-size: 14px;
+    font-weight: 300;
+
+    svg {
+      height: 25px;
+      margin-right: 4px;
+      width: 19px;
+    }
+  }
+
+  .label {
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 6px;
+  }
+
+  input {
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-top: 10px;
+  }
+
+  .input_container {
+    display: flex;
+
+    div:first-child {
+      margin-right: 30px;
+    }
+
+    input {
+      max-width: 95px;
+    }
+  }
+}
