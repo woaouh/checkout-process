@@ -1,0 +1,25 @@
+.crumb {
+  align-items: center;
+  color: #979797;
+  display: flex;
+  font-size: 12px;
+  font-weight: 400;
+
+  &:not(:last-child) {
+    &::after {
+      border: solid #979797;
+      border-width: 0 2px 2px 0;
+      content: '';
+      height: 10px;
+      margin: 0 25px 0 14px;
+      opacity: 0.3;
+      padding: 3px;
+      transform: rotate(-45deg);
+      width: 10px;
+    }
+  }
+
+  .active {
+    color: #5a1094;
+  }
+}

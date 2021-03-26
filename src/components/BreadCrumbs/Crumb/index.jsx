@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import styles from './index.module.sass';
+import classes from './index.module.scss';
 
 export default function Crumb({ stage, path, exact }) {
   return (
-    <li className={styles.crumb}>
-      <NavLink to={path} activeClassName={styles.active} exact={exact}>
+    <li className={classes.crumb}>
+      <NavLink to={path} activeClassName={classes.active} exact={exact}>
         {stage}
       </NavLink>
     </li>

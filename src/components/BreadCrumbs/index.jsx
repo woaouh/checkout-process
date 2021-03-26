@@ -1,6 +1,6 @@
 import React from 'react';
 import Crumb from './Crumb';
-import styles from './index.module.sass';
+import classes from './index.module.scss';
 
 const stages = [
   { name: 'Shipping', path: '/', exact: true },
@@ -10,7 +10,7 @@ const stages = [
 
 export default function BreadCrumbs() {
   return (
-    <ul className={styles.breadCrumbs}>
+    <ul className={classes.bread_crumbs}>
       {stages.map((stage) => (
         <Crumb key={stage.name} stage={stage.name} path={stage.path} exact={stage.exact} />
       ))}
