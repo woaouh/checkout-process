@@ -1,0 +1,54 @@
+.form {
+  color: #5a1094;
+
+  h2 {
+    font-size: 26px;
+    font-weight: 300;
+    margin: 20px 0;
+  }
+
+  .label {
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 6px;
+  }
+
+  input {
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-top: 10px;
+  }
+
+  .phone_container {
+    display: flex;
+
+    input {
+      margin-bottom: 0;
+      max-width: 180px;
+    }
+
+    p {
+      color: #777879;
+      font-size: 13px;
+      font-weight: 300;
+      margin-bottom: 0;
+      margin-left: 10px;
+      margin-top: 7px;
+    }
+  }
+
+  .input_container {
+    display: flex;
+
+    select {
+      margin-right: 20px;
+      max-width: 180px;
+    }
+
+    input {
+      max-width: 120px;
+    }
+  }
+}
