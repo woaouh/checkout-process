@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Button from '../../UI/Button';
+
 import classes from './index.module.scss';
 
 export default function CompletedOrder() {
@@ -19,7 +21,7 @@ export default function CompletedOrder() {
         {' '}
         <span className={classes.date}>Friday 1st April 2016</span>
       </p>
-      <button type="button" className={classes.btn}>Print Recipe</button>
+      <Button type="button" simple>Print Recipe</Button>
     </div>
   );
 }

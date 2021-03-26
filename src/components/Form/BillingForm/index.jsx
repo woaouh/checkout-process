@@ -25,7 +25,7 @@ export default function BillingForm() {
     <form className={classes.form} onSubmit={handleSubmit(onSubmitHandler)}>
       <div className={classes.title_container}>
         <h2>Billing Information</h2>
-        <button type="button">Same as shipping</button>
+        <Button simple>Same as shipping</Button>
       </div>
       <p className={classes.label}>Billing Contact</p>
       <Input type="text" name="name" placeholder="Full Name" register={register} required />
