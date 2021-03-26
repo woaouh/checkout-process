@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './index.module.sass';
+import classes from './index.module.scss';
 
 export default function OrderReport({ subtotal, total, taxes }) {
   return (
     <div>
-      <ul className={styles.orderReport}>
+      <ul className={classes.order_report}>
         <li>
           <span>Subtotal</span>
           <span>
@@ -25,7 +25,7 @@ export default function OrderReport({ subtotal, total, taxes }) {
           </span>
         </li>
       </ul>
-      <div className={styles.orderTotal}>
+      <div className={classes.order_total}>
         <span>Total</span>
         <span>
           $

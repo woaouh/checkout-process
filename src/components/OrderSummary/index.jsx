@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './index.module.sass';
+import classes from './index.module.scss';
 import shoe from '../../assets/images/shoe.png';
 import backpack from '../../assets/images/backpack.png';
 import bag from '../../assets/images/bag.png';
@@ -27,13 +27,13 @@ export default function OrderSummary() {
   }
 
   return (
-    <div className={styles.orderSummary}>
-      <div className={styles.titleContainer}>
+    <div className={classes.order_summary}>
+      <div className={classes.title_container}>
         <h2>Order Summary</h2>
         <button type="button">edit order</button>
       </div>
 
-      <ul className={styles.itemsList}>
+      <ul className={classes.items_list}>
         {cartItems.map((item) => (
           <SummaryItem
             key={item.name}

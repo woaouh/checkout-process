@@ -1,0 +1,26 @@
+.order_summary {
+  h2 {
+    color: #5a1094;
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  button {
+    background-color: transparent;
+    border: 0;
+    color: #979797;
+    font-size: 12px;
+    text-decoration: underline;
+  }
+
+  .title_container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 7px;
+  }
+
+  .items_list {
+    margin-top: 14px;
+  }
+}

@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './index.module.sass';
+import classes from './index.module.scss';
 
 export default function SummaryItem({
   name, img, quantity, type, price,
 }) {
   return (
-    <li key={name} className={styles.cartItem}>
-      <div className={styles.imageContainer}>
+    <li key={name} className={classes.cart_item}>
+      <div className={classes.image_container}>
         <img src={img} alt={name} />
       </div>
-      <div className={styles.itemDescription}>
-        <span className={styles.itemName}>{name}</span>
+      <div className={classes.item_description}>
+        <span className={classes.item_name}>{name}</span>
         <span>{type}</span>
         <span>
           Quantity:
@@ -19,7 +19,7 @@ export default function SummaryItem({
           {quantity}
         </span>
       </div>
-      <div className={styles.itemPrice}>
+      <div className={classes.item_price}>
         $
         {price}
       </div>
