@@ -1,10 +1,10 @@
 /* eslint-disable react/button-has-type */
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './index.module.sass';
+import classes from './index.module.scss';
 
 export default function Button({ type, children, handler }) {
-  return <button type={type} onClick={handler} className={styles.button}>{children}</button>;
+  return <button type={type} onClick={handler} className={classes.button}>{children}</button>;
 }
 
 Button.propTypes = {
