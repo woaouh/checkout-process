@@ -2,27 +2,27 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
 import { ReactComponent as Cart } from '../../assets/svg/cart.svg';
-import styles from './index.module.sass';
+import classes from './index.module.scss';
 import Container from '../Container';
 
 export default function Navbar() {
   return (
-    <header className={styles.navbar}>
+    <header className={classes.navbar}>
       <Container>
-        <div className={styles.wrapper}>
-          <div className={styles.left}>
-            <div className={styles.logoContainer}>
+        <div className={classes.wrapper}>
+          <div className={classes.left}>
+            <div className={classes.logo_container}>
               <NavLink to="/" exact>
                 <Logo />
               </NavLink>
             </div>
             <h1>Front-end Developer Test Task</h1>
           </div>
-          <div className={styles.right}>
+          <div className={classes.right}>
             <span>cart</span>
-            <div className={styles.cartContainer}>
+            <div className={classes.cart_container}>
               <Cart />
-              <div className={styles.cartCounter}>3</div>
+              <div className={classes.cart_counter}>3</div>
             </div>
           </div>
         </div>
