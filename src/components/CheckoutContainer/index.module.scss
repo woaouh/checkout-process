@@ -1,0 +1,18 @@
+.checkout_container {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 18px rgba(0, 0, 0, 0.07);
+  display: flex;
+  justify-content: space-between;
+  min-height: 589px;
+
+  .right {
+    padding: 20px 40px 44px;
+  }
+
+  .left {
+    background-color: #e6e9f0;
+    min-width: 300px;
+    padding: 24px 10px 15px 6px;
+  }
+}
