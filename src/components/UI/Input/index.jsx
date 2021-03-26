@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './index.module.sass';
+import classes from './index.module.scss';
 
 export default function Input({
   type, name, defaultValue, placeholder, register, required,
 }) {
   return (
     <input
-      className={styles.input}
+      className={classes.input}
       name={name}
       type={type}
       defaultValue={defaultValue}
