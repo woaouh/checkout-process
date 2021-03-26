@@ -1,0 +1,39 @@
+.completed_order {
+  color: #2b2525;
+  font-size: 16px;
+
+  .title {
+    color: #5a1094;
+    font-size: 26px;
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+
+  .order_mumber {
+    font-weight: 500;
+    margin-bottom: 11px;
+  }
+
+  .email {
+    margin-bottom: 31px;
+
+    span {
+      color: #5a1094;
+    }
+  }
+
+  .date {
+    display: block;
+    font-weight: 700;
+  }
+
+  .btn {
+    background-color: transparent;
+    border: 0;
+    color: #5a1094;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 31px;
+    text-decoration: underline;
+  }
+}
