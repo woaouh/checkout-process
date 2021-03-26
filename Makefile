@@ -4,6 +4,9 @@ install:
 start:
 	npm start
 
+editorconfig:
+	npm run editorconfig
+
 lint:
 	npm run lint
 
@@ -16,5 +19,5 @@ lint-styles-fix:
 test:
 	npm test
 
-push: lint lint-styles
+push: editorconfig lint lint-styles
 	git push
