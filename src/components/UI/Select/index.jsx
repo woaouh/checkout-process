@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import classes from './index.module.scss';
 
 export default function Select({
-  name, defaultValue, options, register, required,
+  name, value, handler, options, register, required,
 }) {
   return (
     <select
       name={name}
       className={classes.select}
-      defaultValue={defaultValue}
+      value={value}
+      onChange={handler}
       ref={register({ required })}
       required
     >
@@ -21,7 +23,9 @@ export default function Select({
 
 Select.propTypes = {
   name: PropTypes.string.isRequired,
-  defaultValue: PropTypes.string,
+  // eslint-disable-next-line react/require-default-props
+  value: PropTypes.string,
+  handler: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   register: PropTypes.func.isRequired,
   required: PropTypes.bool,
@@ -29,5 +33,5 @@ Select.propTypes = {
 
 Select.defaultProps = {
   required: false,
-  defaultValue: '',
+  handler: () => {},
 };

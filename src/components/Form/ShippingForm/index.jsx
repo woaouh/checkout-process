@@ -1,24 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+
 import Button from '../../UI/Button';
 import Input from '../../UI/Input';
 import Select from '../../UI/Select';
-import classes from './index.module.scss';
 
 import COUNTRIES from '../../../assets/countries';
 import { setShippingInfo } from '../../../redux/checkoutSlice';
+
+import classes from './index.module.scss';
 
 export default function ShippingForm() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { register, handleSubmit } = useForm();
+  const [selectValue, setSelectValue] = useState('');
 
   function onSubmitHandler(data) {
     dispatch(setShippingInfo(data));
 
     history.push('/billing');
+  }
+
+  function onChangeHandler({ target }) {
+    setSelectValue(target.value);
   }
 
   return (
@@ -39,7 +46,7 @@ export default function ShippingForm() {
       <Input type="text" name="apartment" placeholder="Apt, Suite, Bldg, Gate Code. (optional)" register={register} required />
       <Input type="text" name="city" placeholder="City" register={register} required />
       <div className={classes.input_container}>
-        <Select name="country" options={COUNTRIES} register={register} required />
+        <Select name="country" options={COUNTRIES} register={register} handler={onChangeHandler} value={selectValue} required />
         <Input type="number" name="zip" placeholder="ZIP" register={register} required />
       </div>
       <Button type="submit">Continue</Button>
