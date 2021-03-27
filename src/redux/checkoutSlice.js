@@ -28,6 +28,10 @@ export const checkoutSlice = createSlice({
       'cc-exp': '',
       'cc-csc': '',
     },
+    userLocation: {
+      longitude: 0,
+      latitude: 0,
+    },
   },
   reducers: {
     setShippingInfo(state, action) {
@@ -39,9 +43,14 @@ export const checkoutSlice = createSlice({
     setPaymentInfo(state, action) {
       state.paymentInfo = action.payload;
     },
+    setUserLocation(state, action) {
+      state.userLocation = action.payload;
+    },
   },
 });
 
-export const { setShippingInfo, setBillingInfo, setPaymentInfo } = checkoutSlice.actions;
+export const {
+  setShippingInfo, setBillingInfo, setPaymentInfo, setUserLocation,
+} = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;
