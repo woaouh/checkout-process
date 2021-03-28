@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import PropTypes from 'prop-types';
 
 import Button from '../../UI/Button';
 import Input from '../../UI/Input';
@@ -12,10 +12,9 @@ import { setShippingInfo } from '../../../redux/checkoutSlice';
 
 import classes from './index.module.scss';
 
-export default function ShippingForm() {
+export default function ShippingForm({ register, handleSubmit }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { register, handleSubmit } = useForm();
   const { status, error, geolocation } = useSelector(({ checkout }) => checkout);
   const [showLoader, setShowLoader] = useState(false);
   const [formValues, setFormValues] = useState({
@@ -109,3 +108,8 @@ export default function ShippingForm() {
     </form>
   );
 }
+
+ShippingForm.propTypes = {
+  register: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};

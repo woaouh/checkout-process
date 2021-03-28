@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import PropTypes from 'prop-types';
 
 import Button from '../../UI/Button';
 import Input from '../../UI/Input';
@@ -11,13 +11,12 @@ import { setBillingInfo } from '../../../redux/checkoutSlice';
 
 import classes from './index.module.scss';
 
-export default function BillingForm() {
+export default function BillingForm({ register, handleSubmit }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { register, handleSubmit } = useForm();
-  const { status, error, geolocation } = useSelector(({ checkout }) => checkout);
-
-  const shippingInfo = useSelector(({ checkout }) => checkout.shippingInfo);
+  const {
+    status, error, geolocation, shippingInfo,
+  } = useSelector(({ checkout }) => checkout);
   const [formValues, setFormValues] = useState({
     name: '',
     phone: '',
@@ -90,3 +89,8 @@ export default function BillingForm() {
     </form>
   );
 }
+
+BillingForm.propTypes = {
+  register: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};

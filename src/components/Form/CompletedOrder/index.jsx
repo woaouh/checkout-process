@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
 import Button from '../../UI/Button';
 
 import classes from './index.module.scss';

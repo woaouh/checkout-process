@@ -1,18 +1,20 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import PropTypes from 'prop-types';
+
 import Button from '../../UI/Button';
-import { ReactComponent as Lock } from '../../../assets/svg/lock.svg';
 import Input from '../../UI/Input';
-import classes from './index.module.scss';
+
+import { ReactComponent as Lock } from '../../../assets/svg/lock.svg';
 
 import { setPaymentInfo } from '../../../redux/checkoutSlice';
 
-export default function PaymentForm() {
+import classes from './index.module.scss';
+
+export default function PaymentForm({ register, handleSubmit }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { register, handleSubmit } = useForm();
 
   function onSubmitHandler(data) {
     dispatch(setPaymentInfo(data));
@@ -45,3 +47,8 @@ export default function PaymentForm() {
     </form>
   );
 }
+
+PaymentForm.propTypes = {
+  register: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+};
