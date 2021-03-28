@@ -23,7 +23,7 @@ export default function ShippingForm() {
   const [formValues, setFormValues] = useState(shippingInfo);
 
   useEffect(() => {
-    if (status === 'succeeded' || status === 'failed' || error) {
+    if (status !== 'loading') {
       setShowLoader(false);
     }
 
@@ -48,7 +48,7 @@ export default function ShippingForm() {
   }
 
   function onGeoButtonClick() {
-    if (status !== 'succeeded' && status !== 'failed' && !error) {
+    if (status === 'loading') {
       setShowLoader(true);
     }
 
