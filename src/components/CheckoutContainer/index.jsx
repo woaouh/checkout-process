@@ -11,19 +11,22 @@ import CompletedOrder from '../Form/CompletedOrder';
 import OrderSummary from '../OrderSummary';
 
 import usePosition from '../../hooks/usePosition';
-import { setUserLocation } from '../../redux/checkoutSlice';
+import { fetchGeocodedLocation, setGeolocationError } from '../../redux/checkoutSlice';
 
 import classes from './index.module.scss';
 
 export default function CheckoutContainer() {
   const dispatch = useDispatch();
-  const { latitude, longitude } = usePosition();
+  const { latitude, longitude, error } = usePosition();
 
   useEffect(() => {
     if (latitude && longitude) {
-      dispatch(setUserLocation({ latitude, longitude }));
+      dispatch(fetchGeocodedLocation({ latitude, longitude }));
     }
-  }, [latitude, longitude]);
+    if (error) {
+      dispatch(setGeolocationError(error));
+    }
+  }, [latitude, longitude, error]);
 
   return (
     <Container>
