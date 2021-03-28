@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import PropTypes from 'prop-types';
+import { useForm } from 'react-hook-form';
 
 import Button from '../../UI/Button';
 import Input from '../../UI/Input';
@@ -11,21 +11,14 @@ import { setBillingInfo } from '../../../redux/checkoutSlice';
 
 import classes from './index.module.scss';
 
-export default function BillingForm({ register, handleSubmit }) {
+export default function BillingForm() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { register, handleSubmit } = useForm();
   const {
-    status, error, geolocation, shippingInfo,
+    status, error, geolocation, shippingInfo, billingInfo,
   } = useSelector(({ checkout }) => checkout);
-  const [formValues, setFormValues] = useState({
-    name: '',
-    phone: '',
-    address: '',
-    apartment: '',
-    city: '',
-    country: '',
-    zip: '',
-  });
+  const [formValues, setFormValues] = useState(billingInfo);
 
   function onSubmitHandler(data) {
     dispatch(setBillingInfo(data));
@@ -34,7 +27,7 @@ export default function BillingForm({ register, handleSubmit }) {
   }
 
   function onSameAsShippingClick() {
-    setFormValues(shippingInfo);
+    setFormValues({ ...formValues, ...shippingInfo });
   }
 
   function onValueChange({ target }) {
@@ -72,10 +65,12 @@ export default function BillingForm({ register, handleSubmit }) {
         required
       />
       <Input
-        type="email"
+        type="text"
         name="email"
         placeholder="Email Address"
         register={register}
+        handler={onValueChange}
+        value={formValues.email}
         required
       />
       <p className={classes.label}>Billing Address</p>
@@ -89,8 +84,3 @@ export default function BillingForm({ register, handleSubmit }) {
     </form>
   );
 }
-
-BillingForm.propTypes = {
-  register: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-};

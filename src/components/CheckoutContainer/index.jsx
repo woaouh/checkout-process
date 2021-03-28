@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useForm } from 'react-hook-form';
-import { Route } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect, Route } from 'react-router';
 
 import Container from '../Container';
 import BreadCrumbs from '../BreadCrumbs';
@@ -17,7 +16,11 @@ import classes from './index.module.scss';
 
 export default function CheckoutContainer() {
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
+  const { shippingInfo, billingInfo } = useSelector(({ checkout }) => checkout);
+
+  function isObjKeysEmpty(obj) {
+    return Object.keys(obj).every((key) => !obj[key]);
+  }
 
   useEffect(() => {
     dispatch(fetchGeocodedLocation());
@@ -29,16 +32,28 @@ export default function CheckoutContainer() {
         <div className={classes.right}>
           <BreadCrumbs />
           <Route exact path="/">
-            <ShippingForm register={register} handleSubmit={handleSubmit} />
+            <ShippingForm />
           </Route>
           <Route path="/billing">
-            <BillingForm register={register} handleSubmit={handleSubmit} />
+            {isObjKeysEmpty(shippingInfo) ? (
+              <Redirect to="/" />
+            ) : (
+              <BillingForm />
+            )}
           </Route>
           <Route path="/payment">
-            <PaymentForm register={register} handleSubmit={handleSubmit} />
+            {isObjKeysEmpty(billingInfo) ? (
+              <Redirect to="/billing" />
+            ) : (
+              <PaymentForm />
+            )}
           </Route>
           <Route path="/completed-order">
-            <CompletedOrder />
+            {isObjKeysEmpty(billingInfo) ? (
+              <Redirect to="/" />
+            ) : (
+              <CompletedOrder />
+            )}
           </Route>
         </div>
         <div className={classes.left}>

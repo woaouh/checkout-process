@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import PropTypes from 'prop-types';
+import { useForm } from 'react-hook-form';
 
 import Button from '../../UI/Button';
 import Input from '../../UI/Input';
@@ -12,20 +12,15 @@ import { setShippingInfo } from '../../../redux/checkoutSlice';
 
 import classes from './index.module.scss';
 
-export default function ShippingForm({ register, handleSubmit }) {
+export default function ShippingForm() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { status, error, geolocation } = useSelector(({ checkout }) => checkout);
+  const { register, handleSubmit } = useForm();
+  const {
+    status, error, geolocation, shippingInfo,
+  } = useSelector(({ checkout }) => checkout);
   const [showLoader, setShowLoader] = useState(false);
-  const [formValues, setFormValues] = useState({
-    name: '',
-    phone: '',
-    address: '',
-    apartment: '',
-    city: '',
-    country: '',
-    zip: '',
-  });
+  const [formValues, setFormValues] = useState(shippingInfo);
 
   useEffect(() => {
     if (status === 'succeeded' || status === 'failed' || error) {
@@ -81,6 +76,8 @@ export default function ShippingForm({ register, handleSubmit }) {
         name="name"
         placeholder="Full Name"
         register={register}
+        value={formValues.name}
+        handler={onValueChange}
         required
       />
       <div className={classes.phone_container}>
@@ -89,6 +86,8 @@ export default function ShippingForm({ register, handleSubmit }) {
           name="phone"
           placeholder="Daytime Phone"
           register={register}
+          value={formValues.phone}
+          handler={onValueChange}
           required
         />
         <p>
@@ -108,8 +107,3 @@ export default function ShippingForm({ register, handleSubmit }) {
     </form>
   );
 }
-
-ShippingForm.propTypes = {
-  register: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-};
