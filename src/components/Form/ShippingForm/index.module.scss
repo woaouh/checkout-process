@@ -39,6 +39,14 @@
     }
   }
 
+  .geo_container {
+    position: relative;
+
+    input {
+      padding-right: 35px;
+    }
+  }
+
   .input_container {
     display: flex;
 
