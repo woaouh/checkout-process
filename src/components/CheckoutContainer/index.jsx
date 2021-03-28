@@ -10,23 +10,16 @@ import PaymentForm from '../Form/PaymentForm';
 import CompletedOrder from '../Form/CompletedOrder';
 import OrderSummary from '../OrderSummary';
 
-import usePosition from '../../hooks/usePosition';
-import { fetchGeocodedLocation, setGeolocationError } from '../../redux/checkoutSlice';
+import { fetchGeocodedLocation } from '../../redux/checkoutSlice';
 
 import classes from './index.module.scss';
 
 export default function CheckoutContainer() {
   const dispatch = useDispatch();
-  const { latitude, longitude, error } = usePosition();
 
   useEffect(() => {
-    if (latitude && longitude) {
-      dispatch(fetchGeocodedLocation({ latitude, longitude }));
-    }
-    if (error) {
-      dispatch(setGeolocationError(error));
-    }
-  }, [latitude, longitude, error]);
+    dispatch(fetchGeocodedLocation());
+  }, []);
 
   return (
     <Container>
