@@ -18,18 +18,21 @@ export default function ShippingForm({ onSubmitHandler }) {
   const [showLoader, setShowLoader] = useState(false);
   const [formValues, setFormValues] = useState(shippingInfo);
 
+  function setGeolocationValues() {
+    setFormValues({
+      ...formValues,
+      city: geolocation.city,
+      country: geolocation.country,
+      zip: geolocation.postcode,
+    });
+  }
+
   useEffect(() => {
     if (status !== 'loading') {
       setShowLoader(false);
     }
-
     if (status === 'succeeded') {
-      setFormValues({
-        ...formValues,
-        city: geolocation.city,
-        country: geolocation.country,
-        zip: geolocation.postcode,
-      });
+      setGeolocationValues();
     }
   }, [status, error]);
 
@@ -41,16 +44,9 @@ export default function ShippingForm({ onSubmitHandler }) {
     if (status === 'loading') {
       setShowLoader(true);
     }
-
     if (status === 'succeeded') {
-      setFormValues({
-        ...formValues,
-        city: geolocation.city,
-        country: geolocation.country,
-        zip: geolocation.postcode,
-      });
+      setGeolocationValues();
     }
-
     if (error) {
       alert(error);
     }
