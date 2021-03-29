@@ -69,7 +69,7 @@ export default function CheckoutContainer() {
     <Container>
       <section className={classes.checkout_container}>
         <div className={classes.right}>
-          <BreadCrumbs />
+          <BreadCrumbs activeStep={activeStep} />
           <Route exact path={steps[0]}>
             <ShippingForm onSubmitHandler={onSubmitHandler} />
           </Route>
