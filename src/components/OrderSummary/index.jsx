@@ -2,6 +2,7 @@ import React from 'react';
 
 import SummaryItem from './SummaryItem';
 import OrderReport from './OrderReport';
+import Button from '../UI/Button';
 
 import shoe from '../../assets/images/shoe.png';
 import backpack from '../../assets/images/backpack.png';
@@ -32,9 +33,8 @@ export default function OrderSummary() {
     <div className={classes.order_summary}>
       <div className={classes.title_container}>
         <h2>Order Summary</h2>
-        <button type="button">edit order</button>
+        <Button simple>edit order</Button>
       </div>
-
       <ul className={classes.items_list}>
         {cartItems.map((item) => (
           <SummaryItem
@@ -47,13 +47,7 @@ export default function OrderSummary() {
           />
         ))}
       </ul>
-
-      <OrderReport
-        subtotal={totalPrice}
-        total={totalPrice + taxes}
-        taxes={taxes}
-      />
-
+      <OrderReport subtotal={totalPrice} total={totalPrice + taxes} taxes={taxes} />
     </div>
   );
 }

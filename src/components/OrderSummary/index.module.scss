@@ -6,18 +6,15 @@
     margin: 0;
   }
 
-  button {
-    background-color: transparent;
-    border: 0;
-    color: #979797;
-    font-size: 12px;
-    text-decoration: underline;
-  }
-
   .title_container {
     display: flex;
     justify-content: space-between;
     padding: 0 7px;
+
+    button {
+      color: #979797;
+      margin-top: 0;
+    }
   }
 
   .items_list {
