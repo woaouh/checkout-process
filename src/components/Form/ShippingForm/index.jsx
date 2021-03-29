@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 
 import Button from '../../UI/Button';
 import Input from '../../UI/Input';
 import Loader from '../../UI/Loader';
 import AddressForm from '../AddressForm';
 
-import { setShippingInfo } from '../../../redux/checkoutSlice';
-
 import classes from './index.module.scss';
 
-export default function ShippingForm() {
-  const dispatch = useDispatch();
-  const history = useHistory();
+export default function ShippingForm({ onSubmitHandler }) {
   const { register, handleSubmit } = useForm();
   const {
     status, error, geolocation, shippingInfo,
@@ -36,12 +32,6 @@ export default function ShippingForm() {
       });
     }
   }, [status, error]);
-
-  function onSubmitHandler(data) {
-    dispatch(setShippingInfo(data));
-
-    history.push('/billing');
-  }
 
   function onValueChange({ target }) {
     setFormValues({ ...formValues, [target.name]: target.value });
@@ -107,3 +97,7 @@ export default function ShippingForm() {
     </form>
   );
 }
+
+ShippingForm.propTypes = {
+  onSubmitHandler: PropTypes.func.isRequired,
+};

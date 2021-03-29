@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route } from 'react-router';
+import { Redirect, Route, useHistory } from 'react-router';
 
 import Container from '../Container';
 import BreadCrumbs from '../BreadCrumbs';
@@ -10,47 +10,77 @@ import PaymentForm from '../Form/PaymentForm';
 import CompletedOrder from '../Form/CompletedOrder';
 import OrderSummary from '../OrderSummary';
 
-import { fetchGeocodedLocation } from '../../redux/checkoutSlice';
+import {
+  fetchGeocodedLocation, setBillingInfo, setPaymentInfo, setShippingInfo,
+} from '../../redux/checkoutSlice';
+import isObjectKeysFalse from '../../helpers';
 
 import classes from './index.module.scss';
 
+const steps = {
+  0: '/',
+  1: '/billing',
+  2: '/payment',
+  3: '/completed-order',
+};
+
 export default function CheckoutContainer() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { shippingInfo, billingInfo } = useSelector(({ checkout }) => checkout);
-
-  function isObjKeysEmpty(obj) {
-    return Object.keys(obj).every((key) => !obj[key]);
-  }
+  const [activeStep, setActiveStep] = useState(0);
 
   useEffect(() => {
     dispatch(fetchGeocodedLocation());
   }, []);
+
+  function onSubmitHandler(data) {
+    switch (activeStep) {
+      case 0:
+        dispatch(setShippingInfo(data));
+        setActiveStep((cur) => cur + 1);
+        history.push(steps[1]);
+        break;
+      case 1:
+        dispatch(setBillingInfo(data));
+        setActiveStep((cur) => cur + 1);
+        history.push(steps[2]);
+        break;
+      case 2:
+        dispatch(setPaymentInfo(data));
+        setActiveStep((cur) => cur + 1);
+        history.push(steps[3]);
+        break;
+      default:
+        break;
+    }
+  }
 
   return (
     <Container>
       <section className={classes.checkout_container}>
         <div className={classes.right}>
           <BreadCrumbs />
-          <Route exact path="/">
-            <ShippingForm />
+          <Route exact path={steps[0]}>
+            <ShippingForm onSubmitHandler={onSubmitHandler} />
           </Route>
-          <Route path="/billing">
-            {isObjKeysEmpty(shippingInfo) ? (
-              <Redirect to="/" />
+          <Route path={steps[1]}>
+            {isObjectKeysFalse(shippingInfo) ? (
+              <Redirect to={steps[0]} />
             ) : (
-              <BillingForm />
+              <BillingForm onSubmitHandler={onSubmitHandler} />
             )}
           </Route>
-          <Route path="/payment">
-            {isObjKeysEmpty(billingInfo) ? (
-              <Redirect to="/billing" />
+          <Route path={steps[2]}>
+            {isObjectKeysFalse(billingInfo) ? (
+              <Redirect to={steps[1]} />
             ) : (
-              <PaymentForm />
+              <PaymentForm onSubmitHandler={onSubmitHandler} />
             )}
           </Route>
-          <Route path="/completed-order">
-            {isObjKeysEmpty(billingInfo) ? (
-              <Redirect to="/" />
+          <Route path={steps[3]}>
+            {isObjectKeysFalse(billingInfo) ? (
+              <Redirect to={steps[0]} />
             ) : (
               <CompletedOrder />
             )}

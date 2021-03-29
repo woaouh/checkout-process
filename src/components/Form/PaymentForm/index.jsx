@@ -1,29 +1,19 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 
 import Button from '../../UI/Button';
 import Input from '../../UI/Input';
 
 import { ReactComponent as Lock } from '../../../assets/svg/lock.svg';
 
-import { setPaymentInfo } from '../../../redux/checkoutSlice';
-
 import classes from './index.module.scss';
 
-export default function PaymentForm() {
-  const dispatch = useDispatch();
-  const history = useHistory();
+export default function PaymentForm({ onSubmitHandler }) {
   const { register, handleSubmit } = useForm();
   const { paymentInfo } = useSelector(({ checkout }) => checkout);
   const [formValues, setFormValues] = useState(paymentInfo);
-
-  function onSubmitHandler(data) {
-    dispatch(setPaymentInfo(data));
-
-    history.push('/completed-order');
-  }
 
   function onValueChange({ target }) {
     setFormValues({ ...formValues, [target.name]: target.value });
@@ -86,3 +76,7 @@ export default function PaymentForm() {
     </form>
   );
 }
+
+PaymentForm.propTypes = {
+  onSubmitHandler: PropTypes.func.isRequired,
+};
