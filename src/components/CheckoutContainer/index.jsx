@@ -34,22 +34,22 @@ export default function CheckoutContainer() {
     dispatch(fetchGeocodedLocation());
   }, []);
 
+  function completeStep(setInfo, data, step) {
+    dispatch(setInfo(data));
+    setActiveStep((cur) => cur + 1);
+    history.push(step);
+  }
+
   function onSubmitHandler(data) {
     switch (activeStep) {
       case 0:
-        dispatch(setShippingInfo(data));
-        setActiveStep((cur) => cur + 1);
-        history.push(steps[1]);
+        completeStep(setShippingInfo, data, steps[1]);
         break;
       case 1:
-        dispatch(setBillingInfo(data));
-        setActiveStep((cur) => cur + 1);
-        history.push(steps[2]);
+        completeStep(setBillingInfo, data, steps[2]);
         break;
       case 2:
-        dispatch(setPaymentInfo(data));
-        setActiveStep((cur) => cur + 1);
-        history.push(steps[3]);
+        completeStep(setPaymentInfo, data, steps[3]);
         break;
       default:
         break;
