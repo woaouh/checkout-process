@@ -65,7 +65,7 @@ export default function BillingForm() {
         required
       />
       <Input
-        type="text"
+        type="email"
         name="email"
         placeholder="Email Address"
         register={register}

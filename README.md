@@ -2,7 +2,8 @@
 
 # Checkout Process
 
-*To run the project locally:*
+_To run the project locally:_
+
 ```
 $ make install
 $ make start
@@ -14,4 +15,4 @@ In process...
 
 ## Links
 
-* [Test task](https://github.com/fs/test-tasks/tree/master/front-end)
+- [Test task](https://github.com/fs/test-tasks/tree/master/front-end)
