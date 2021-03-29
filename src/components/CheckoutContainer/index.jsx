@@ -13,7 +13,7 @@ import OrderSummary from '../OrderSummary';
 import {
   fetchGeocodedLocation, setBillingInfo, setPaymentInfo, setShippingInfo,
 } from '../../redux/checkoutSlice';
-import isObjectKeysFalse from '../../helpers';
+import { isObjectKeysFalse } from '../../helpers';
 
 import classes from './index.module.scss';
 

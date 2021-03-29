@@ -1,10 +1,15 @@
 import React from 'react';
-import classes from './index.module.scss';
+
+import SummaryItem from './SummaryItem';
+import OrderReport from './OrderReport';
+
 import shoe from '../../assets/images/shoe.png';
 import backpack from '../../assets/images/backpack.png';
 import bag from '../../assets/images/bag.png';
-import SummaryItem from './SummaryItem';
-import OrderReport from './OrderReport';
+
+import { calcArrayTotalItemValue } from '../../helpers';
+
+import classes from './index.module.scss';
 
 const cartItems = [
   {
@@ -21,10 +26,7 @@ const cartItems = [
 const taxes = 12.12;
 
 export default function OrderSummary() {
-  function calcTotalPrice() {
-    const result = cartItems.reduce((acc, item) => item.price + acc, 0);
-    return { subtotal: result, total: result + taxes };
-  }
+  const totalPrice = calcArrayTotalItemValue(cartItems, 'price');
 
   return (
     <div className={classes.order_summary}>
@@ -47,8 +49,8 @@ export default function OrderSummary() {
       </ul>
 
       <OrderReport
-        subtotal={calcTotalPrice().subtotal}
-        total={calcTotalPrice().total}
+        subtotal={totalPrice}
+        total={totalPrice + taxes}
         taxes={taxes}
       />
 
