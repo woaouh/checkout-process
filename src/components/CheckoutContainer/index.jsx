@@ -56,6 +56,15 @@ export default function CheckoutContainer() {
     }
   }
 
+  function renderRoute(previousFormValues, component, step) {
+    // if previous form has not been filled then redirect to step:
+    if (isObjectKeysFalse(previousFormValues)) {
+      return <Redirect to={step} />;
+    }
+
+    return component;
+  }
+
   return (
     <Container>
       <section className={classes.checkout_container}>
@@ -65,25 +74,13 @@ export default function CheckoutContainer() {
             <ShippingForm onSubmitHandler={onSubmitHandler} />
           </Route>
           <Route path={steps[1]}>
-            {isObjectKeysFalse(shippingInfo) ? (
-              <Redirect to={steps[0]} />
-            ) : (
-              <BillingForm onSubmitHandler={onSubmitHandler} />
-            )}
+            {renderRoute(shippingInfo, <BillingForm onSubmitHandler={onSubmitHandler} />, steps[0])}
           </Route>
           <Route path={steps[2]}>
-            {isObjectKeysFalse(billingInfo) ? (
-              <Redirect to={steps[1]} />
-            ) : (
-              <PaymentForm onSubmitHandler={onSubmitHandler} />
-            )}
+            {renderRoute(billingInfo, <PaymentForm onSubmitHandler={onSubmitHandler} />, steps[1])}
           </Route>
           <Route path={steps[3]}>
-            {isObjectKeysFalse(billingInfo) ? (
-              <Redirect to={steps[0]} />
-            ) : (
-              <CompletedOrder />
-            )}
+            {renderRoute(billingInfo, <CompletedOrder />, steps[0])}
           </Route>
         </div>
         <div className={classes.left}>
