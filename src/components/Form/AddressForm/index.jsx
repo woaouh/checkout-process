@@ -10,9 +10,7 @@ import COUNTRIES from '../../../assets/countries';
 
 import classes from './index.module.scss';
 
-export default function AddressForm({
-  register, formValues, onClickHandler, onChangeHandler,
-}) {
+export default function AddressForm({ register, onClick, onChange }) {
   return (
     <>
       <Input
@@ -20,8 +18,7 @@ export default function AddressForm({
         name="address"
         placeholder="Street Address"
         register={register}
-        handler={onChangeHandler}
-        value={formValues.address}
+        onChange={onChange}
         required
       />
       <Input
@@ -29,12 +26,11 @@ export default function AddressForm({
         name="apartment"
         placeholder="Apt, Suite, Bldg, Gate Code. (optional)"
         register={register}
-        handler={onChangeHandler}
-        value={formValues.apartment}
+        onChange={onChange}
         required
       />
       <div className={classes.geo_container}>
-        <Button handler={onClickHandler} geo>
+        <Button onClick={onClick} geo>
           <Geo />
         </Button>
         <Input
@@ -42,8 +38,7 @@ export default function AddressForm({
           name="city"
           placeholder="City"
           register={register}
-          handler={onChangeHandler}
-          value={formValues.city}
+          onChange={onChange}
           required
         />
       </div>
@@ -52,17 +47,15 @@ export default function AddressForm({
           name="country"
           options={COUNTRIES}
           register={register}
-          handler={onChangeHandler}
-          value={formValues.country}
+          onChange={onChange}
           required
         />
         <Input
           type="number"
-          name="zip"
+          name="postcode"
           placeholder="ZIP"
           register={register}
-          handler={onChangeHandler}
-          value={formValues.zip}
+          onChange={onChange}
           required
         />
       </div>
@@ -72,7 +65,6 @@ export default function AddressForm({
 
 AddressForm.propTypes = {
   register: PropTypes.func.isRequired,
-  formValues: PropTypes.objectOf(PropTypes.string).isRequired,
-  onClickHandler: PropTypes.func.isRequired,
-  onChangeHandler: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };

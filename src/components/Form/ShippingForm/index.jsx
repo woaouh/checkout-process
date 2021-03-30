@@ -8,36 +8,28 @@ import Input from '../../UI/Input';
 import Loader from '../../UI/Loader';
 import AddressForm from '../AddressForm';
 
+import { mapObjectAndSetValues } from '../../../helpers';
+
 import classes from './index.module.scss';
 
 export default function ShippingForm({ onSubmitHandler }) {
-  const { register, handleSubmit } = useForm();
   const {
     status, error, geolocation, shippingInfo,
   } = useSelector(({ checkout }) => checkout);
+  const { register, handleSubmit, setValue } = useForm({ defaultValues: shippingInfo });
   const [showLoader, setShowLoader] = useState(false);
-  const [formValues, setFormValues] = useState(shippingInfo);
-
-  function setGeolocationValues() {
-    setFormValues({
-      ...formValues,
-      city: geolocation.city,
-      country: geolocation.country,
-      zip: geolocation.postcode,
-    });
-  }
 
   useEffect(() => {
     if (status !== 'loading') {
       setShowLoader(false);
     }
     if (status === 'succeeded') {
-      setGeolocationValues();
+      mapObjectAndSetValues(geolocation, setValue);
     }
   }, [status, error]);
 
   function onValueChange({ target }) {
-    setFormValues({ ...formValues, [target.name]: target.value });
+    setValue(target.name, target.value);
   }
 
   function onGeoButtonClick() {
@@ -45,7 +37,7 @@ export default function ShippingForm({ onSubmitHandler }) {
       setShowLoader(true);
     }
     if (status === 'succeeded') {
-      setGeolocationValues();
+      mapObjectAndSetValues(geolocation, setValue);
     }
     if (error) {
       alert(error);
@@ -62,8 +54,7 @@ export default function ShippingForm({ onSubmitHandler }) {
         name="name"
         placeholder="Full Name"
         register={register}
-        value={formValues.name}
-        handler={onValueChange}
+        onChange={onValueChange}
         required
       />
       <div className={classes.phone_container}>
@@ -72,8 +63,7 @@ export default function ShippingForm({ onSubmitHandler }) {
           name="phone"
           placeholder="Daytime Phone"
           register={register}
-          value={formValues.phone}
-          handler={onValueChange}
+          onChange={onValueChange}
           required
         />
         <p>
@@ -85,9 +75,8 @@ export default function ShippingForm({ onSubmitHandler }) {
       <p className={classes.label}>Address</p>
       <AddressForm
         register={register}
-        formValues={formValues}
-        onClickHandler={onGeoButtonClick}
-        onChangeHandler={onValueChange}
+        onClick={onGeoButtonClick}
+        onChange={onValueChange}
       />
       <Button type="submit">Continue</Button>
     </form>

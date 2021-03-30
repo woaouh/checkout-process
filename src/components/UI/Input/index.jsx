@@ -4,37 +4,30 @@ import PropTypes from 'prop-types';
 import classes from './index.module.scss';
 
 export default function Input({
-  type, name, value, handler, placeholder, register, required,
+  type, name, onChange, placeholder, register, required,
 }) {
   return (
     <input
       className={classes.input}
       name={name}
       type={type}
-      value={value}
-      onChange={handler}
+      onChange={onChange}
       placeholder={placeholder}
       ref={register({ required })}
-      required
     />
   );
 }
 
 Input.propTypes = {
-  type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/require-default-props
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
-  handler: PropTypes.func,
+  type: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
   placeholder: PropTypes.string.isRequired,
   register: PropTypes.func.isRequired,
   required: PropTypes.bool,
 };
 
 Input.defaultProps = {
+  onChange: () => {},
   required: false,
-  handler: () => {},
 };

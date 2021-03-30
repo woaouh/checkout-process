@@ -6,12 +6,12 @@ import classNames from 'classnames';
 import classes from './index.module.scss';
 
 export default function Button({
-  type, children, handler, simple, geo,
+  type, children, onClick, simple, geo,
 }) {
   return (
     <button
       type={type}
-      onClick={handler}
+      onClick={onClick}
       className={classNames(classes.button, {
         [classes.simple]: simple,
         [classes.geo_button]: geo,
@@ -25,14 +25,14 @@ export default function Button({
 Button.propTypes = {
   type: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-  handler: PropTypes.func,
+  onClick: PropTypes.func,
   simple: PropTypes.bool,
   geo: PropTypes.bool,
 };
 
 Button.defaultProps = {
   type: 'button',
-  handler: () => null,
+  onClick: () => {},
   simple: false,
   geo: false,
 };

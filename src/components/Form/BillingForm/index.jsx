@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
@@ -7,31 +7,27 @@ import Button from '../../UI/Button';
 import Input from '../../UI/Input';
 import AddressForm from '../AddressForm';
 
+import { mapObjectAndSetValues } from '../../../helpers';
+
 import classes from './index.module.scss';
 
 export default function BillingForm({ onSubmitHandler }) {
-  const { register, handleSubmit } = useForm();
   const {
     status, error, geolocation, shippingInfo, billingInfo,
   } = useSelector(({ checkout }) => checkout);
-  const [formValues, setFormValues] = useState(billingInfo);
+  const { register, handleSubmit, setValue } = useForm({ defaultValues: billingInfo });
 
   function onSameAsShippingClick() {
-    setFormValues({ ...formValues, ...shippingInfo });
+    mapObjectAndSetValues(shippingInfo, setValue);
   }
 
   function onValueChange({ target }) {
-    setFormValues({ ...formValues, [target.name]: target.value });
+    setValue(target.name, target.value);
   }
 
   function onGeoButtonClick() {
     if (status === 'succeeded') {
-      setFormValues({
-        ...formValues,
-        city: geolocation.city,
-        country: geolocation.country,
-        zip: geolocation.postcode,
-      });
+      mapObjectAndSetValues(geolocation, setValue);
     }
     if (error) {
       alert(error);
@@ -42,7 +38,7 @@ export default function BillingForm({ onSubmitHandler }) {
     <form className={classes.form} onSubmit={handleSubmit(onSubmitHandler)}>
       <div className={classes.title_container}>
         <h2>Billing Information</h2>
-        <Button handler={onSameAsShippingClick} simple>Same as shipping</Button>
+        <Button onClick={onSameAsShippingClick} simple>Same as shipping</Button>
       </div>
       <p className={classes.label}>Billing Contact</p>
       <Input
@@ -50,8 +46,7 @@ export default function BillingForm({ onSubmitHandler }) {
         name="name"
         placeholder="Full Name"
         register={register}
-        handler={onValueChange}
-        value={formValues.name}
+        onChange={onValueChange}
         required
       />
       <Input
@@ -59,16 +54,14 @@ export default function BillingForm({ onSubmitHandler }) {
         name="email"
         placeholder="Email Address"
         register={register}
-        handler={onValueChange}
-        value={formValues.email}
+        onChange={onValueChange}
         required
       />
       <p className={classes.label}>Billing Address</p>
       <AddressForm
         register={register}
-        formValues={formValues}
-        onClickHandler={onGeoButtonClick}
-        onChangeHandler={onValueChange}
+        onClick={onGeoButtonClick}
+        onChange={onValueChange}
       />
       <Button type="submit">Continue</Button>
     </form>

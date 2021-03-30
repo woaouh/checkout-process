@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
@@ -11,12 +11,11 @@ import { ReactComponent as Lock } from '../../../assets/svg/lock.svg';
 import classes from './index.module.scss';
 
 export default function PaymentForm({ onSubmitHandler }) {
-  const { register, handleSubmit } = useForm();
   const { paymentInfo } = useSelector(({ checkout }) => checkout);
-  const [formValues, setFormValues] = useState(paymentInfo);
+  const { register, handleSubmit, setValue } = useForm({ defaultValues: paymentInfo });
 
   function onValueChange({ target }) {
-    setFormValues({ ...formValues, [target.name]: target.value });
+    setValue(target.name, target.value);
   }
 
   return (
@@ -32,8 +31,7 @@ export default function PaymentForm({ onSubmitHandler }) {
         name="cc-name"
         placeholder="Name as it appears on your card"
         register={register}
-        handler={onValueChange}
-        value={formValues['cc-name']}
+        onChange={onValueChange}
         required
       />
       <p className={classes.label}>Card Number</p>
@@ -42,8 +40,7 @@ export default function PaymentForm({ onSubmitHandler }) {
         name="cc-number"
         placeholder="XXXX XXXX XXXX XXXX XXXX"
         register={register}
-        handler={onValueChange}
-        value={formValues['cc-number']}
+        onChange={onValueChange}
         required
       />
       <div className={classes.input_container}>
@@ -54,8 +51,7 @@ export default function PaymentForm({ onSubmitHandler }) {
             name="cc-exp"
             placeholder="MM / YY"
             register={register}
-            handler={onValueChange}
-            value={formValues['cc-exp']}
+            onChange={onValueChange}
             required
           />
         </div>
@@ -66,8 +62,7 @@ export default function PaymentForm({ onSubmitHandler }) {
             name="cc-csc"
             placeholder=""
             register={register}
-            handler={onValueChange}
-            value={formValues['cc-csc']}
+            onChange={onValueChange}
             required
           />
         </div>

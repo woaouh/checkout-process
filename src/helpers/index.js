@@ -5,3 +5,7 @@ export function isObjectKeysFalse(obj) {
 export function calcArrayTotalItemValue(arr, value) {
   return arr.reduce((acc, item) => item[value] + acc, 0);
 }
+
+export function mapObjectAndSetValues(obj, cb) {
+  Object.keys(obj).map((key) => cb(key, obj[key]));
+}
