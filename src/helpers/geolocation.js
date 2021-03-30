@@ -6,7 +6,7 @@ const getLocation = new Promise((resolve, reject) => {
   navigator.geolocation.getCurrentPosition(
     ({ coords }) => resolve({ latitude: coords.latitude, longitude: coords.longitude }),
 
-    ((error) => reject(error)),
+    (error) => reject(error),
 
     {
       enableHighAccuracy: false,
