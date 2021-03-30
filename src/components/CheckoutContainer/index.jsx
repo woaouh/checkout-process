@@ -30,9 +30,7 @@ export default function CheckoutContainer() {
   const { shippingInfo, billingInfo } = useSelector(({ checkout }) => checkout);
   const [activeStep, setActiveStep] = useState(0);
 
-  useEffect(() => {
-    dispatch(fetchGeocodedLocation());
-  }, []);
+  useEffect(() => dispatch(fetchGeocodedLocation()), []);
 
   function completeStep(setInfo, data, step) {
     dispatch(setInfo(data));
