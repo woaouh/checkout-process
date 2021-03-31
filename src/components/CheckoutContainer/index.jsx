@@ -10,7 +10,7 @@ import PaymentForm from '../Form/PaymentForm';
 import CompletedOrder from '../Form/CompletedOrder';
 import OrderSummary from '../OrderSummary';
 
-import { setBillingInfo, setPaymentInfo, setShippingInfo } from '../../redux/checkoutSlice';
+import { setUserInfo } from '../../redux/checkoutSlice';
 import { isObjectKeysFalse } from '../../helpers';
 
 import classes from './index.module.scss';
@@ -33,27 +33,11 @@ const steps = [
 export default function CheckoutContainer() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { shippingInfo, billingInfo, activeStep } = useSelector(({ checkout }) => checkout);
-
-  function completeStep(setInfo, data, path) {
-    dispatch(setInfo(data));
-    history.push(path);
-  }
+  const { activeStep, userInfo } = useSelector(({ checkout }) => checkout);
 
   function onFormSubmit(data) {
-    switch (activeStep) {
-      case 0:
-        completeStep(setShippingInfo, data, steps[1].path);
-        break;
-      case 1:
-        completeStep(setBillingInfo, data, steps[2].path);
-        break;
-      case 2:
-        completeStep(setPaymentInfo, data, steps[3].path);
-        break;
-      default:
-        break;
-    }
+    dispatch(setUserInfo(data));
+    history.push(steps[activeStep + 1].path);
   }
 
   function renderRoute(previousFormValues, component, path) {
@@ -73,13 +57,13 @@ export default function CheckoutContainer() {
             <ShippingForm onSubmit={onFormSubmit} />
           </Route>
           <Route path={steps[1].path}>
-            {renderRoute(shippingInfo, <BillingForm onSubmit={onFormSubmit} />, steps[0].path)}
+            {renderRoute(userInfo.shipping, <BillingForm onSubmit={onFormSubmit} />, steps[0].path)}
           </Route>
           <Route path={steps[2].path}>
-            {renderRoute(billingInfo, <PaymentForm onSubmit={onFormSubmit} />, steps[1].path)}
+            {renderRoute(userInfo.billing, <PaymentForm onSubmit={onFormSubmit} />, steps[1].path)}
           </Route>
           <Route path={steps[3].path}>
-            {renderRoute(billingInfo, <CompletedOrder />, steps[0].path)}
+            {renderRoute(userInfo.billing, <CompletedOrder />, steps[0].path)}
           </Route>
         </div>
 

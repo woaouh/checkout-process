@@ -15,9 +15,9 @@ import classes from './index.module.scss';
 
 export default function ShippingForm({ onSubmit }) {
   const {
-    status, error, geolocation, shippingInfo,
+    status, error, geolocation, userInfo,
   } = useSelector(({ checkout }) => checkout);
-  const { register, handleSubmit, setValue } = useForm({ defaultValues: shippingInfo });
+  const { register, handleSubmit, setValue } = useForm({ defaultValues: userInfo.shipping });
 
   useEffect(() => {
     if (status === 'succeeded') {

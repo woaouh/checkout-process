@@ -11,8 +11,8 @@ import { ReactComponent as Lock } from '../../../assets/svg/lock.svg';
 import classes from './index.module.scss';
 
 export default function PaymentForm({ onSubmit }) {
-  const { paymentInfo } = useSelector(({ checkout }) => checkout);
-  const { register, handleSubmit, setValue } = useForm({ defaultValues: paymentInfo });
+  const { userInfo } = useSelector(({ checkout }) => checkout);
+  const { register, handleSubmit, setValue } = useForm({ defaultValues: userInfo.payment });
 
   function onValueChange({ target }) {
     setValue(target.name, target.value);

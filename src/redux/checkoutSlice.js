@@ -17,50 +17,52 @@ export const fetchGeocodedLocation = createAsyncThunk(
 export const checkoutSlice = createSlice({
   name: 'checkout',
   initialState: {
-    shippingInfo: {
-      name: '',
-      phone: '',
+    formStages: ['shipping', 'billing', 'payment'],
+    userInfo: {
+      shipping: {
+        name: '',
+        phone: '',
+        address: '',
+        apartment: '',
+        city: '',
+        country: '',
+        zip: '',
+      },
+      billing: {
+        name: '',
+        email: '',
+        address: '',
+        apartment: '',
+        city: '',
+        country: '',
+        zip: '',
+      },
+      payment: {
+        'cc-name': '',
+        'cc-number': '',
+        'cc-exp': '',
+        'cc-csc': '',
+      },
+    },
+    geolocation: {
       address: '',
       apartment: '',
       city: '',
       country: '',
-      zip: '',
+      postcode: '',
     },
-    billingInfo: {
-      name: '',
-      email: '',
-      address: '',
-      apartment: '',
-      city: '',
-      country: '',
-      zip: '',
-    },
-    paymentInfo: {
-      'cc-name': '',
-      'cc-number': '',
-      'cc-exp': '',
-      'cc-csc': '',
-    },
-    geolocation: '',
     status: 'idle',
     error: null,
     activeStep: 0,
   },
   reducers: {
-    setShippingInfo(state, action) {
-      state.shippingInfo = action.payload;
-      state.activeStep += 1;
-    },
-    setBillingInfo(state, action) {
-      state.billingInfo = action.payload;
-      state.activeStep += 1;
-    },
-    setPaymentInfo(state, action) {
-      state.paymentInfo = action.payload;
-      state.activeStep += 1;
-    },
     setActiveStep(state, action) {
       state.activeStep = action.payload;
+    },
+    setUserInfo(state, action) {
+      const activeStage = state.formStages[state.activeStep];
+      state.userInfo[activeStage] = action.payload;
+      state.activeStep += 1;
     },
   },
   extraReducers: {
@@ -85,8 +87,6 @@ export const checkoutSlice = createSlice({
   },
 });
 
-export const {
-  setShippingInfo, setBillingInfo, setPaymentInfo, setActiveStep,
-} = checkoutSlice.actions;
+export const { setActiveStep, setUserInfo } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;

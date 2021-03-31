@@ -6,7 +6,7 @@ import Button from '../../UI/Button';
 import classes from './index.module.scss';
 
 export default function CompletedOrder() {
-  const userEmail = useSelector(({ checkout }) => checkout.billingInfo.email);
+  const { email } = useSelector(({ checkout }) => checkout.userInfo.billing);
 
   return (
     <div className={classes.completed_order}>
@@ -15,7 +15,7 @@ export default function CompletedOrder() {
       <p className={classes.email}>
         Your will recieve an email confirmation shortly to
         {' '}
-        <span>{userEmail}</span>
+        <span>{email}</span>
       </p>
       <p>
         Estimated delivery Day is

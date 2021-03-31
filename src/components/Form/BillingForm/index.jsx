@@ -15,12 +15,12 @@ import classes from './index.module.scss';
 
 export default function BillingForm({ onSubmit }) {
   const {
-    status, error, geolocation, shippingInfo, billingInfo,
+    status, error, geolocation, userInfo,
   } = useSelector(({ checkout }) => checkout);
-  const { register, handleSubmit, setValue } = useForm({ defaultValues: billingInfo });
+  const { register, handleSubmit, setValue } = useForm({ defaultValues: userInfo.billing });
 
   function onSameAsShippingClick() {
-    mapObjectAndSetValues(shippingInfo, setValue);
+    mapObjectAndSetValues(userInfo.shipping, setValue);
   }
 
   function onValueChange({ target }) {
