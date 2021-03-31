@@ -40,11 +40,19 @@ export default function CheckoutContainer() {
   }
 
   function renderRoute(step, component) {
-    if (activeStep !== step) {
-      return <Redirect to="/" />;
-    }
-    return component;
+    return (
+      <Route path={steps[step].path}>
+        {activeStep !== step ? <Redirect to="/" /> : component}
+      </Route>
+    );
   }
+
+  const formSteps = [
+    <ShippingForm onSubmit={onFormSubmit} />,
+    <BillingForm onSubmit={onFormSubmit} />,
+    <PaymentForm onSubmit={onFormSubmit} />,
+    <CompletedOrder />,
+  ];
 
   return (
     <Container>
@@ -52,18 +60,7 @@ export default function CheckoutContainer() {
 
         <div className={classes.right}>
           <BreadCrumbs steps={steps.slice(0, -1)} />
-          <Route exact path={steps[0].path}>
-            <ShippingForm onSubmit={onFormSubmit} />
-          </Route>
-          <Route path={steps[1].path}>
-            {renderRoute(1, <BillingForm onSubmit={onFormSubmit} />)}
-          </Route>
-          <Route path={steps[2].path}>
-            {renderRoute(2, <PaymentForm onSubmit={onFormSubmit} />)}
-          </Route>
-          <Route path={steps[3].path}>
-            {renderRoute(3, <CompletedOrder />)}
-          </Route>
+          {formSteps.map((component, i) => renderRoute(i, component))}
         </div>
 
         <div className={classes.left}>
