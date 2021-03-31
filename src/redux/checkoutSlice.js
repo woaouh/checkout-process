@@ -72,7 +72,7 @@ export const checkoutSlice = createSlice({
       } = action.payload;
 
       state.geolocation = {
-        road, house_number, city, country, postcode,
+        address: road, apartment: house_number, city, country, postcode,
       };
     },
     [fetchGeocodedLocation.rejected]: (state, action) => {
