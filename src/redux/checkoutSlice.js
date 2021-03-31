@@ -44,6 +44,7 @@ export const checkoutSlice = createSlice({
     geolocation: '',
     status: 'idle',
     error: null,
+    activeStep: 0,
   },
   reducers: {
     setShippingInfo(state, action) {
@@ -54,6 +55,9 @@ export const checkoutSlice = createSlice({
     },
     setPaymentInfo(state, action) {
       state.paymentInfo = action.payload;
+    },
+    setActiveStep(state, action) {
+      state.activeStep = action.payload;
     },
   },
   extraReducers: {
@@ -79,7 +83,7 @@ export const checkoutSlice = createSlice({
 });
 
 export const {
-  setShippingInfo, setBillingInfo, setPaymentInfo,
+  setShippingInfo, setBillingInfo, setPaymentInfo, setActiveStep,
 } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;

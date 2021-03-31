@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, useHistory } from 'react-router';
 
@@ -11,53 +11,60 @@ import CompletedOrder from '../Form/CompletedOrder';
 import OrderSummary from '../OrderSummary';
 
 import {
-  fetchGeocodedLocation, setBillingInfo, setPaymentInfo, setShippingInfo,
+  fetchGeocodedLocation, setBillingInfo, setPaymentInfo, setShippingInfo, setActiveStep,
 } from '../../redux/checkoutSlice';
 import { isObjectKeysFalse } from '../../helpers';
 
 import classes from './index.module.scss';
 
-const steps = {
-  0: '/',
-  1: '/billing',
-  2: '/payment',
-  3: '/completed-order',
-};
+const steps = [
+  {
+    step: 0, name: 'Shipping', path: '/', exact: true,
+  },
+  {
+    step: 1, name: 'Billing', path: '/billing', exact: false,
+  },
+  {
+    step: 2, name: 'Payment', path: '/payment', exact: false,
+  },
+  {
+    step: 3, name: 'Completed Order', path: '/completed-order', exact: false,
+  },
+];
 
 export default function CheckoutContainer() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { shippingInfo, billingInfo } = useSelector(({ checkout }) => checkout);
-  const [activeStep, setActiveStep] = useState(0);
+  const { shippingInfo, billingInfo, activeStep } = useSelector(({ checkout }) => checkout);
 
   useEffect(() => dispatch(fetchGeocodedLocation()), []);
 
-  function completeStep(setInfo, data, step) {
+  function completeStep(setInfo, data, path) {
     dispatch(setInfo(data));
-    setActiveStep((cur) => cur + 1);
-    history.push(step);
+    dispatch(setActiveStep(activeStep + 1));
+    history.push(path);
   }
 
   function onSubmitHandler(data) {
     switch (activeStep) {
       case 0:
-        completeStep(setShippingInfo, data, steps[1]);
+        completeStep(setShippingInfo, data, steps[1].path);
         break;
       case 1:
-        completeStep(setBillingInfo, data, steps[2]);
+        completeStep(setBillingInfo, data, steps[2].path);
         break;
       case 2:
-        completeStep(setPaymentInfo, data, steps[3]);
+        completeStep(setPaymentInfo, data, steps[3].path);
         break;
       default:
         break;
     }
   }
 
-  function renderRoute(previousFormValues, component, step) {
+  function renderRoute(previousFormValues, component, path) {
     // if previous form has not been filled then redirect to step:
     if (isObjectKeysFalse(previousFormValues)) {
-      return <Redirect to={step} />;
+      return <Redirect to={path} />;
     }
 
     return component;
@@ -67,18 +74,30 @@ export default function CheckoutContainer() {
     <Container>
       <section className={classes.checkout_container}>
         <div className={classes.right}>
-          <BreadCrumbs activeStep={activeStep} />
-          <Route exact path={steps[0]}>
+          <BreadCrumbs steps={steps.slice(0, -1)} />
+          <Route exact path={steps[0].path}>
             <ShippingForm onSubmitHandler={onSubmitHandler} />
           </Route>
-          <Route path={steps[1]}>
-            {renderRoute(shippingInfo, <BillingForm onSubmitHandler={onSubmitHandler} />, steps[0])}
+          <Route path={steps[1].path}>
+            {renderRoute(
+              shippingInfo,
+              <BillingForm onSubmitHandler={onSubmitHandler} />,
+              steps[0].path,
+            )}
           </Route>
-          <Route path={steps[2]}>
-            {renderRoute(billingInfo, <PaymentForm onSubmitHandler={onSubmitHandler} />, steps[1])}
+          <Route path={steps[2].path}>
+            {renderRoute(
+              billingInfo,
+              <PaymentForm onSubmitHandler={onSubmitHandler} />,
+              steps[1].path,
+            )}
           </Route>
-          <Route path={steps[3]}>
-            {renderRoute(billingInfo, <CompletedOrder />, steps[0])}
+          <Route path={steps[3].path}>
+            {renderRoute(
+              billingInfo,
+              <CompletedOrder />,
+              steps[0].path,
+            )}
           </Route>
         </div>
         <div className={classes.left}>
