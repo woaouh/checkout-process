@@ -11,7 +11,7 @@ import { mapObjectAndSetValues } from '../../../helpers';
 
 import classes from './index.module.scss';
 
-export default function BillingForm({ onSubmitHandler }) {
+export default function BillingForm({ onSubmit }) {
   const {
     status, error, geolocation, shippingInfo, billingInfo,
   } = useSelector(({ checkout }) => checkout);
@@ -35,7 +35,7 @@ export default function BillingForm({ onSubmitHandler }) {
   }
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(onSubmitHandler)}>
+    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={classes.title_container}>
         <h2>Billing Information</h2>
         <Button onClick={onSameAsShippingClick} simple>Same as shipping</Button>
@@ -69,5 +69,5 @@ export default function BillingForm({ onSubmitHandler }) {
 }
 
 BillingForm.propTypes = {
-  onSubmitHandler: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };

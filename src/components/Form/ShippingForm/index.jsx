@@ -12,7 +12,7 @@ import { mapObjectAndSetValues } from '../../../helpers';
 
 import classes from './index.module.scss';
 
-export default function ShippingForm({ onSubmitHandler }) {
+export default function ShippingForm({ onSubmit }) {
   const {
     status, error, geolocation, shippingInfo,
   } = useSelector(({ checkout }) => checkout);
@@ -45,7 +45,7 @@ export default function ShippingForm({ onSubmitHandler }) {
   }
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(onSubmitHandler)}>
+    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
       {showLoader && <Loader />}
       <h2>Shipping Info</h2>
       <p className={classes.label}>Recipient</p>
@@ -84,5 +84,5 @@ export default function ShippingForm({ onSubmitHandler }) {
 }
 
 ShippingForm.propTypes = {
-  onSubmitHandler: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };

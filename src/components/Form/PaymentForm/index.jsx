@@ -10,7 +10,7 @@ import { ReactComponent as Lock } from '../../../assets/svg/lock.svg';
 
 import classes from './index.module.scss';
 
-export default function PaymentForm({ onSubmitHandler }) {
+export default function PaymentForm({ onSubmit }) {
   const { paymentInfo } = useSelector(({ checkout }) => checkout);
   const { register, handleSubmit, setValue } = useForm({ defaultValues: paymentInfo });
 
@@ -19,7 +19,7 @@ export default function PaymentForm({ onSubmitHandler }) {
   }
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(onSubmitHandler)}>
+    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
       <h2>Payment</h2>
       <div className={classes.subtitle_container}>
         <Lock />
@@ -73,5 +73,5 @@ export default function PaymentForm({ onSubmitHandler }) {
 }
 
 PaymentForm.propTypes = {
-  onSubmitHandler: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };

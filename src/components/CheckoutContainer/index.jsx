@@ -45,7 +45,7 @@ export default function CheckoutContainer() {
     history.push(path);
   }
 
-  function onSubmitHandler(data) {
+  function onFormSubmit(data) {
     switch (activeStep) {
       case 0:
         completeStep(setShippingInfo, data, steps[1].path);
@@ -73,33 +73,23 @@ export default function CheckoutContainer() {
   return (
     <Container>
       <section className={classes.checkout_container}>
+
         <div className={classes.right}>
           <BreadCrumbs steps={steps.slice(0, -1)} />
           <Route exact path={steps[0].path}>
-            <ShippingForm onSubmitHandler={onSubmitHandler} />
+            <ShippingForm onSubmit={onFormSubmit} />
           </Route>
           <Route path={steps[1].path}>
-            {renderRoute(
-              shippingInfo,
-              <BillingForm onSubmitHandler={onSubmitHandler} />,
-              steps[0].path,
-            )}
+            {renderRoute(shippingInfo, <BillingForm onSubmit={onFormSubmit} />, steps[0].path)}
           </Route>
           <Route path={steps[2].path}>
-            {renderRoute(
-              billingInfo,
-              <PaymentForm onSubmitHandler={onSubmitHandler} />,
-              steps[1].path,
-            )}
+            {renderRoute(billingInfo, <PaymentForm onSubmit={onFormSubmit} />, steps[1].path)}
           </Route>
           <Route path={steps[3].path}>
-            {renderRoute(
-              billingInfo,
-              <CompletedOrder />,
-              steps[0].path,
-            )}
+            {renderRoute(billingInfo, <CompletedOrder />, steps[0].path)}
           </Route>
         </div>
+
         <div className={classes.left}>
           <OrderSummary />
         </div>
