@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 
 import Button from '../../UI/Button';
 import Input from '../../UI/Input';
-import Loader from '../../UI/Loader';
 import AddressForm from '../AddressForm';
 
 import { mapObjectAndSetValues } from '../../../helpers';
@@ -17,25 +16,18 @@ export default function ShippingForm({ onSubmit }) {
     status, error, geolocation, shippingInfo,
   } = useSelector(({ checkout }) => checkout);
   const { register, handleSubmit, setValue } = useForm({ defaultValues: shippingInfo });
-  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
-    if (status !== 'loading') {
-      setShowLoader(false);
-    }
     if (status === 'succeeded') {
       mapObjectAndSetValues(geolocation, setValue);
     }
-  }, [status, error]);
+  }, [status]);
 
   function onValueChange({ target }) {
     setValue(target.name, target.value);
   }
 
   function onGeoButtonClick() {
-    if (status === 'loading') {
-      setShowLoader(true);
-    }
     if (status === 'succeeded') {
       mapObjectAndSetValues(geolocation, setValue);
     }
@@ -46,7 +38,6 @@ export default function ShippingForm({ onSubmit }) {
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-      {showLoader && <Loader />}
       <h2>Shipping Info</h2>
       <p className={classes.label}>Recipient</p>
       <Input
