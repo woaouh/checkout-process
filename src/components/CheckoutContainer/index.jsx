@@ -10,9 +10,7 @@ import PaymentForm from '../Form/PaymentForm';
 import CompletedOrder from '../Form/CompletedOrder';
 import OrderSummary from '../OrderSummary';
 
-import {
-  setBillingInfo, setPaymentInfo, setShippingInfo, setActiveStep,
-} from '../../redux/checkoutSlice';
+import { setBillingInfo, setPaymentInfo, setShippingInfo } from '../../redux/checkoutSlice';
 import { isObjectKeysFalse } from '../../helpers';
 
 import classes from './index.module.scss';
@@ -39,7 +37,6 @@ export default function CheckoutContainer() {
 
   function completeStep(setInfo, data, path) {
     dispatch(setInfo(data));
-    dispatch(setActiveStep(activeStep + 1));
     history.push(path);
   }
 
@@ -60,7 +57,6 @@ export default function CheckoutContainer() {
   }
 
   function renderRoute(previousFormValues, component, path) {
-    // if previous form has not been filled then redirect to step:
     if (isObjectKeysFalse(previousFormValues)) {
       return <Redirect to={path} />;
     }

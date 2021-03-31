@@ -49,12 +49,15 @@ export const checkoutSlice = createSlice({
   reducers: {
     setShippingInfo(state, action) {
       state.shippingInfo = action.payload;
+      state.activeStep += 1;
     },
     setBillingInfo(state, action) {
       state.billingInfo = action.payload;
+      state.activeStep += 1;
     },
     setPaymentInfo(state, action) {
       state.paymentInfo = action.payload;
+      state.activeStep += 1;
     },
     setActiveStep(state, action) {
       state.activeStep = action.payload;
