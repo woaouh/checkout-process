@@ -11,7 +11,6 @@ import CompletedOrder from '../Form/CompletedOrder';
 import OrderSummary from '../OrderSummary';
 
 import { setUserInfo } from '../../redux/checkoutSlice';
-import { isObjectKeysFalse } from '../../helpers';
 
 import classes from './index.module.scss';
 
@@ -33,16 +32,16 @@ const steps = [
 export default function CheckoutContainer() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { activeStep, userInfo } = useSelector(({ checkout }) => checkout);
+  const { activeStep } = useSelector(({ checkout }) => checkout);
 
   function onFormSubmit(data) {
     dispatch(setUserInfo(data));
     history.push(steps[activeStep + 1].path);
   }
 
-  function renderRoute(previousFormValues, component, path) {
-    if (isObjectKeysFalse(previousFormValues)) {
-      return <Redirect to={path} />;
+  function renderRoute(step, component) {
+    if (activeStep !== step) {
+      return <Redirect to="/" />;
     }
     return component;
   }
@@ -57,13 +56,13 @@ export default function CheckoutContainer() {
             <ShippingForm onSubmit={onFormSubmit} />
           </Route>
           <Route path={steps[1].path}>
-            {renderRoute(userInfo.shipping, <BillingForm onSubmit={onFormSubmit} />, steps[0].path)}
+            {renderRoute(1, <BillingForm onSubmit={onFormSubmit} />)}
           </Route>
           <Route path={steps[2].path}>
-            {renderRoute(userInfo.billing, <PaymentForm onSubmit={onFormSubmit} />, steps[1].path)}
+            {renderRoute(2, <PaymentForm onSubmit={onFormSubmit} />)}
           </Route>
           <Route path={steps[3].path}>
-            {renderRoute(userInfo.billing, <CompletedOrder />, steps[0].path)}
+            {renderRoute(3, <CompletedOrder />)}
           </Route>
         </div>
 
