@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, useHistory } from 'react-router';
 
@@ -11,7 +11,7 @@ import CompletedOrder from '../Form/CompletedOrder';
 import OrderSummary from '../OrderSummary';
 
 import {
-  fetchGeocodedLocation, setBillingInfo, setPaymentInfo, setShippingInfo, setActiveStep,
+  setBillingInfo, setPaymentInfo, setShippingInfo, setActiveStep,
 } from '../../redux/checkoutSlice';
 import { isObjectKeysFalse } from '../../helpers';
 
@@ -36,8 +36,6 @@ export default function CheckoutContainer() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { shippingInfo, billingInfo, activeStep } = useSelector(({ checkout }) => checkout);
-
-  useEffect(() => dispatch(fetchGeocodedLocation()), []);
 
   function completeStep(setInfo, data, path) {
     dispatch(setInfo(data));
@@ -66,7 +64,6 @@ export default function CheckoutContainer() {
     if (isObjectKeysFalse(previousFormValues)) {
       return <Redirect to={path} />;
     }
-
     return component;
   }
 
