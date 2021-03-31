@@ -1,11 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
 import Button from '../../UI/Button';
 import Input from '../../UI/Input';
 import AddressForm from '../AddressForm';
+import Toast from '../../UI/Toast';
 
 import { mapObjectAndSetValues } from '../../../helpers';
 
@@ -30,7 +32,7 @@ export default function BillingForm({ onSubmit }) {
       mapObjectAndSetValues(geolocation, setValue);
     }
     if (error) {
-      alert(error);
+      toast.error(error);
     }
   }
 
@@ -64,6 +66,7 @@ export default function BillingForm({ onSubmit }) {
         onChange={onValueChange}
       />
       <Button type="submit">Continue</Button>
+      <Toast />
     </form>
   );
 }
