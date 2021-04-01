@@ -66,7 +66,7 @@ export default function BillingForm({ onSubmit }) {
         onChange={onValueChange}
       />
       <Button type="submit">Continue</Button>
-      <Toast />
+      {error && <Toast />}
     </form>
   );
 }
