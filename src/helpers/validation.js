@@ -9,13 +9,6 @@ const schema = {
   name: yup.string()
     .required('Name is required')
     .matches(nameRegExp, 'Name must be more then 2 letters'),
-  phone: yup.string()
-    .required('Phone is required')
-    .min(5, 'Phone must be more then 5 numbers')
-    .matches(phoneRegExp, 'Phone must be a valid phone number'),
-  email: yup.string()
-    .required('Email is required')
-    .email('Email must be a valid email'),
   address: yup.string()
     .required('Address is required'),
   city: yup.string()
@@ -27,21 +20,18 @@ const schema = {
 };
 
 export const shippingSchema = yup.object().shape({
-  name: schema.name,
-  phone: schema.phone,
-  address: schema.address,
-  city: schema.city,
-  country: schema.country,
-  postcode: schema.postcode,
+  ...schema,
+  phone: yup.string()
+    .required('Phone is required')
+    .min(5, 'Phone must be more then 5 numbers')
+    .matches(phoneRegExp, 'Phone must be a valid phone number'),
 });
 
 export const billingSchema = yup.object().shape({
-  name: schema.name,
-  email: schema.email,
-  address: schema.address,
-  city: schema.city,
-  country: schema.country,
-  postcode: schema.postcode,
+  ...schema,
+  email: yup.string()
+    .required('Email is required')
+    .email('Email must be a valid email'),
 });
 
 export const paymentSchema = yup.object().shape({
