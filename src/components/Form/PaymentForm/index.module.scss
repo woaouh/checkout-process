@@ -38,7 +38,7 @@
   .input_container {
     display: flex;
 
-    div:first-child {
+    > div:first-child {
       margin-right: 30px;
     }
 
