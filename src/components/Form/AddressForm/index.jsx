@@ -12,7 +12,9 @@ import COUNTRIES from '../../../assets/countries';
 
 import classes from './index.module.scss';
 
-export default function AddressForm({ register, onClick, onChange }) {
+export default function AddressForm({
+  register, errors, onClick, onChange,
+}) {
   const { status } = useSelector(({ checkout }) => checkout);
 
   return (
@@ -24,7 +26,7 @@ export default function AddressForm({ register, onClick, onChange }) {
         placeholder="Street Address"
         register={register}
         onChange={onChange}
-        required
+        message={errors.address?.message && errors.address?.message}
       />
       <Input
         type="text"
@@ -32,7 +34,6 @@ export default function AddressForm({ register, onClick, onChange }) {
         placeholder="Apt, Suite, Bldg, Gate Code. (optional)"
         register={register}
         onChange={onChange}
-        required
       />
       <div className={classes.geo_container}>
         <Button onClick={onClick} geo>
@@ -44,7 +45,7 @@ export default function AddressForm({ register, onClick, onChange }) {
           placeholder="City"
           register={register}
           onChange={onChange}
-          required
+          message={errors.city?.message && errors.city?.message}
         />
       </div>
       <div className={classes.input_container}>
@@ -53,7 +54,7 @@ export default function AddressForm({ register, onClick, onChange }) {
           options={COUNTRIES}
           register={register}
           onChange={onChange}
-          required
+          message={errors.country?.message && errors.country?.message}
         />
         <Input
           type="number"
@@ -61,7 +62,7 @@ export default function AddressForm({ register, onClick, onChange }) {
           placeholder="ZIP"
           register={register}
           onChange={onChange}
-          required
+          message={errors.postcode?.message && errors.postcode?.message}
         />
       </div>
     </div>
@@ -70,6 +71,7 @@ export default function AddressForm({ register, onClick, onChange }) {
 
 AddressForm.propTypes = {
   register: PropTypes.func.isRequired,
+  errors: PropTypes.objectOf(PropTypes.object).isRequired,
   onClick: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
 };

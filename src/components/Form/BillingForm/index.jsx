@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
 
 import Button from '../../UI/Button';
@@ -10,6 +11,7 @@ import AddressForm from '../AddressForm';
 import Toast from '../../UI/Toast';
 
 import { mapObjectAndSetValues } from '../../../helpers';
+import { billingSchema } from '../../../helpers/validation';
 
 import classes from './index.module.scss';
 
@@ -17,7 +19,9 @@ export default function BillingForm({ onSubmit }) {
   const {
     status, error, geolocation, userInfo,
   } = useSelector(({ checkout }) => checkout);
-  const { register, handleSubmit, setValue } = useForm({ defaultValues: userInfo.billing });
+  const {
+    register, handleSubmit, setValue, errors,
+  } = useForm({ defaultValues: userInfo.billing, resolver: yupResolver(billingSchema) });
 
   function onSameAsShippingClick() {
     mapObjectAndSetValues(userInfo.shipping, setValue);
@@ -49,7 +53,7 @@ export default function BillingForm({ onSubmit }) {
         placeholder="Full Name"
         register={register}
         onChange={onValueChange}
-        required
+        message={errors.name?.message && errors.name?.message}
       />
       <Input
         type="email"
@@ -57,11 +61,12 @@ export default function BillingForm({ onSubmit }) {
         placeholder="Email Address"
         register={register}
         onChange={onValueChange}
-        required
+        message={errors.email?.message && errors.email?.message}
       />
       <p className={classes.label}>Billing Address</p>
       <AddressForm
         register={register}
+        errors={errors}
         onClick={onGeoButtonClick}
         onChange={onValueChange}
       />

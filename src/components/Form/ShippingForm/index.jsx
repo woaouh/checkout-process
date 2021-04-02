@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
 
 import Button from '../../UI/Button';
@@ -10,6 +11,7 @@ import AddressForm from '../AddressForm';
 import Toast from '../../UI/Toast';
 
 import { mapObjectAndSetValues } from '../../../helpers';
+import { shippingSchema } from '../../../helpers/validation';
 
 import classes from './index.module.scss';
 
@@ -17,7 +19,9 @@ export default function ShippingForm({ onSubmit }) {
   const {
     status, error, geolocation, userInfo,
   } = useSelector(({ checkout }) => checkout);
-  const { register, handleSubmit, setValue } = useForm({ defaultValues: userInfo.shipping });
+  const {
+    register, handleSubmit, setValue, errors,
+  } = useForm({ defaultValues: userInfo.shipping, resolver: yupResolver(shippingSchema) });
 
   useEffect(() => {
     if (status === 'succeeded') {
@@ -48,7 +52,7 @@ export default function ShippingForm({ onSubmit }) {
         placeholder="Full Name"
         register={register}
         onChange={onValueChange}
-        required
+        message={errors.name?.message && errors.name?.message}
       />
       <div className={classes.phone_container}>
         <Input
@@ -57,7 +61,7 @@ export default function ShippingForm({ onSubmit }) {
           placeholder="Daytime Phone"
           register={register}
           onChange={onValueChange}
-          required
+          message={errors.phone?.message && errors.phone?.message}
         />
         <p>
           For delivery
@@ -68,6 +72,7 @@ export default function ShippingForm({ onSubmit }) {
       <p className={classes.label}>Address</p>
       <AddressForm
         register={register}
+        errors={errors}
         onClick={onGeoButtonClick}
         onChange={onValueChange}
       />
