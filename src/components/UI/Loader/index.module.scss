@@ -1,6 +1,8 @@
 .backdrop {
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(204, 204, 204, 0.329);
+  border: 1px solid transparent;
+  border-radius: 5px;
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -13,9 +15,9 @@
 
 .loader {
   display: inline-block;
-  height: 80px;
+  height: 100%;
   position: relative;
-  width: 80px;
+  width: 100%;
   z-index: 11;
 
   div {
@@ -25,10 +27,10 @@
     border-radius: 50%;
     box-sizing: border-box;
     display: block;
-    height: 64px;
+    height: 22px;
     margin: 8px;
     position: absolute;
-    width: 64px;
+    width: 22px;
 
     &:nth-child(1) {
       animation-delay: -0.45s;

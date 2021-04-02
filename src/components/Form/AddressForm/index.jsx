@@ -1,25 +1,32 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
 import Button from '../../UI/Button';
 import Input from '../../UI/Input';
 import Select from '../../UI/Select';
+import Toast from '../../UI/Toast';
 import Loader from '../../UI/Loader';
 
 import { ReactComponent as Geo } from '../../../assets/svg/geolocation.svg';
 import COUNTRIES from '../../../assets/countries';
 
 import classes from './index.module.scss';
+import { mapObjectAndSetValues } from '../../../helpers';
 
 export default function AddressForm({
-  register, errors, onClick, onChange,
+  register, errors, onChange, setValue,
 }) {
-  const { status } = useSelector(({ checkout }) => checkout);
+  const { status, error, geolocation } = useSelector(({ checkout }) => checkout);
+
+  const onGeoButtonClick = () => {
+    if (status === 'succeeded') mapObjectAndSetValues(geolocation, setValue);
+    if (error) toast.error(error);
+  };
 
   return (
     <div className={classes.address_container}>
-      {status === 'loading' && <Loader />}
       <Input
         type="text"
         name="address"
@@ -36,9 +43,12 @@ export default function AddressForm({
         onChange={onChange}
       />
       <div className={classes.geo_container}>
-        <Button onClick={onClick} geo>
-          <Geo />
-        </Button>
+        <div className={classes.geo_btn_container}>
+          {status === 'loading' && <Loader />}
+          <Button onClick={onGeoButtonClick} geo>
+            <Geo />
+          </Button>
+        </div>
         <Input
           type="text"
           name="city"
@@ -65,6 +75,7 @@ export default function AddressForm({
           message={errors.postcode?.message && errors.postcode?.message}
         />
       </div>
+      {error && <Toast />}
     </div>
   );
 }
@@ -72,6 +83,6 @@ export default function AddressForm({
 AddressForm.propTypes = {
   register: PropTypes.func.isRequired,
   errors: PropTypes.objectOf(PropTypes.object).isRequired,
-  onClick: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired,
 };
