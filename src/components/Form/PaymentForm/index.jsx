@@ -22,6 +22,20 @@ export default function PaymentForm({ onSubmit }) {
 
   const onValueChange = ({ target }) => setValue(target.name, target.value);
 
+  const renderInput = (type, name, label, placeholder) => (
+    <>
+      <p className={classes.label}>{label}</p>
+      <Input
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        register={register}
+        onChange={onValueChange}
+        message={getErrorMessage(errors, name)}
+      />
+    </>
+  );
+
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
       <h2>Payment</h2>
@@ -29,47 +43,11 @@ export default function PaymentForm({ onSubmit }) {
         <Lock />
         <p>This is a secure 128-bit SSL encrypted payment</p>
       </div>
-      <p className={classes.label}>Cardholder Name</p>
-      <Input
-        type="text"
-        name="cc-name"
-        placeholder="Name as it appears on your card"
-        register={register}
-        onChange={onValueChange}
-        message={getErrorMessage(errors, 'cc-name')}
-      />
-      <p className={classes.label}>Card Number</p>
-      <Input
-        type="number"
-        name="cc-number"
-        placeholder="XXXX XXXX XXXX XXXX XXXX"
-        register={register}
-        onChange={onValueChange}
-        message={getErrorMessage(errors, 'cc-number')}
-      />
+      {renderInput('text', 'cc-name', 'Cardholder Name', 'Name as it appears on your card')}
+      {renderInput('number', 'cc-number', 'Cardholder Number', 'XXXX XXXX XXXX XXXX XXXX')}
       <div className={classes.input_container}>
-        <div>
-          <p className={classes.label}>Expire Date</p>
-          <Input
-            type="text"
-            name="cc-exp"
-            placeholder="MM / YY"
-            register={register}
-            onChange={onValueChange}
-            message={getErrorMessage(errors, 'cc-exp')}
-          />
-        </div>
-        <div>
-          <p className={classes.label}>Security Code</p>
-          <Input
-            type="number"
-            name="cc-csc"
-            placeholder=""
-            register={register}
-            onChange={onValueChange}
-            message={getErrorMessage(errors, 'cc-csc')}
-          />
-        </div>
+        <div>{renderInput('text', 'cc-exp', 'Expire Date', 'MM / YY')}</div>
+        <div>{renderInput('number', 'cc-csc', 'Security Cod', '')}</div>
       </div>
       <Button type="submit">Pay Securely</Button>
     </form>
