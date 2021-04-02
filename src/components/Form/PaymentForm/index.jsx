@@ -9,8 +9,10 @@ import Input from '../../UI/Input';
 
 import { ReactComponent as Lock } from '../../../assets/svg/lock.svg';
 
-import classes from './index.module.scss';
 import { paymentSchema } from '../../../helpers/validation';
+import { getErrorMessage } from '../../../helpers';
+
+import classes from './index.module.scss';
 
 export default function PaymentForm({ onSubmit }) {
   const { userInfo } = useSelector(({ checkout }) => checkout);
@@ -18,9 +20,7 @@ export default function PaymentForm({ onSubmit }) {
     register, handleSubmit, setValue, errors,
   } = useForm({ defaultValues: userInfo.payment, resolver: yupResolver(paymentSchema) });
 
-  function onValueChange({ target }) {
-    setValue(target.name, target.value);
-  }
+  const onValueChange = ({ target }) => setValue(target.name, target.value);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -36,7 +36,7 @@ export default function PaymentForm({ onSubmit }) {
         placeholder="Name as it appears on your card"
         register={register}
         onChange={onValueChange}
-        message={errors['cc-name']?.message && errors['cc-name']?.message}
+        message={getErrorMessage(errors, 'cc-name')}
       />
       <p className={classes.label}>Card Number</p>
       <Input
@@ -45,7 +45,7 @@ export default function PaymentForm({ onSubmit }) {
         placeholder="XXXX XXXX XXXX XXXX XXXX"
         register={register}
         onChange={onValueChange}
-        message={errors['cc-number']?.message && errors['cc-number']?.message}
+        message={getErrorMessage(errors, 'cc-number')}
       />
       <div className={classes.input_container}>
         <div>
@@ -56,7 +56,7 @@ export default function PaymentForm({ onSubmit }) {
             placeholder="MM / YY"
             register={register}
             onChange={onValueChange}
-            message={errors['cc-exp']?.message && errors['cc-exp']?.message}
+            message={getErrorMessage(errors, 'cc-exp')}
           />
         </div>
         <div>
@@ -67,7 +67,7 @@ export default function PaymentForm({ onSubmit }) {
             placeholder=""
             register={register}
             onChange={onValueChange}
-            message={errors['cc-csc']?.message && errors['cc-csc']?.message}
+            message={getErrorMessage(errors, 'cc-csc')}
           />
         </div>
       </div>

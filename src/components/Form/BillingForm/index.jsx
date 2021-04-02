@@ -8,7 +8,7 @@ import Button from '../../UI/Button';
 import Input from '../../UI/Input';
 import AddressForm from '../AddressForm';
 
-import { mapObjectAndSetValues } from '../../../helpers';
+import { mapObjectAndSetValues, getErrorMessage } from '../../../helpers';
 import { billingSchema } from '../../../helpers/validation';
 
 import classes from './index.module.scss';
@@ -36,7 +36,7 @@ export default function BillingForm({ onSubmit }) {
         placeholder="Full Name"
         register={register}
         onChange={onValueChange}
-        message={errors.name?.message && errors.name?.message}
+        message={getErrorMessage(errors, 'name')}
       />
       <Input
         type="email"
@@ -44,7 +44,7 @@ export default function BillingForm({ onSubmit }) {
         placeholder="Email Address"
         register={register}
         onChange={onValueChange}
-        message={errors.email?.message && errors.email?.message}
+        message={getErrorMessage(errors, 'email')}
       />
       <p className={classes.label}>Billing Address</p>
       <AddressForm

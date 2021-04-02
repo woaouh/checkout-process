@@ -13,7 +13,7 @@ import { ReactComponent as Geo } from '../../../assets/svg/geolocation.svg';
 import COUNTRIES from '../../../assets/countries';
 
 import classes from './index.module.scss';
-import { mapObjectAndSetValues } from '../../../helpers';
+import { mapObjectAndSetValues, getErrorMessage } from '../../../helpers';
 
 export default function AddressForm({
   register, errors, onChange, setValue,
@@ -33,7 +33,7 @@ export default function AddressForm({
         placeholder="Street Address"
         register={register}
         onChange={onChange}
-        message={errors.address?.message && errors.address?.message}
+        message={getErrorMessage(errors, 'address')}
       />
       <Input
         type="text"
@@ -55,7 +55,7 @@ export default function AddressForm({
           placeholder="City"
           register={register}
           onChange={onChange}
-          message={errors.city?.message && errors.city?.message}
+          message={getErrorMessage(errors, 'city')}
         />
       </div>
       <div className={classes.input_container}>
@@ -64,7 +64,7 @@ export default function AddressForm({
           options={COUNTRIES}
           register={register}
           onChange={onChange}
-          message={errors.country?.message && errors.country?.message}
+          message={getErrorMessage(errors, 'country')}
         />
         <Input
           type="number"
@@ -72,7 +72,7 @@ export default function AddressForm({
           placeholder="ZIP"
           register={register}
           onChange={onChange}
-          message={errors.postcode?.message && errors.postcode?.message}
+          message={getErrorMessage(errors, 'postcode')}
         />
       </div>
       {error && <Toast />}

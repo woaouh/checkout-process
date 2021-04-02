@@ -9,6 +9,7 @@ import Input from '../../UI/Input';
 import AddressForm from '../AddressForm';
 
 import { shippingSchema } from '../../../helpers/validation';
+import { getErrorMessage } from '../../../helpers';
 
 import classes from './index.module.scss';
 
@@ -30,7 +31,7 @@ export default function ShippingForm({ onSubmit }) {
         placeholder="Full Name"
         register={register}
         onChange={onValueChange}
-        message={errors.name?.message && errors.name?.message}
+        message={getErrorMessage(errors, 'name')}
       />
       <div className={classes.phone_container}>
         <Input
@@ -39,7 +40,7 @@ export default function ShippingForm({ onSubmit }) {
           placeholder="Daytime Phone"
           register={register}
           onChange={onValueChange}
-          message={errors.phone?.message && errors.phone?.message}
+          message={getErrorMessage(errors, 'phone')}
         />
         <p>
           For delivery
