@@ -14,9 +14,7 @@ export default function Crumb({
   const dispatch = useDispatch();
   const { activeStep } = useSelector(({ checkout }) => checkout);
 
-  function completeStep() {
-    dispatch(setActiveStep(step));
-  }
+  const completeStep = () => dispatch(setActiveStep(step));
 
   return (
     <li
