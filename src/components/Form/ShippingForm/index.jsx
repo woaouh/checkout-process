@@ -23,24 +23,14 @@ export default function ShippingForm({ onSubmit }) {
     register, handleSubmit, setValue, errors,
   } = useForm({ defaultValues: userInfo.shipping, resolver: yupResolver(shippingSchema) });
 
-  useEffect(() => {
-    if (status === 'succeeded') {
-      mapObjectAndSetValues(geolocation, setValue);
-    }
-  }, [status]);
+  useEffect(() => mapObjectAndSetValues(geolocation, setValue), [status]);
 
-  function onValueChange({ target }) {
-    setValue(target.name, target.value);
-  }
+  const onValueChange = ({ target }) => setValue(target.name, target.value);
 
-  function onGeoButtonClick() {
-    if (status === 'succeeded') {
-      mapObjectAndSetValues(geolocation, setValue);
-    }
-    if (error) {
-      toast.error(error);
-    }
-  }
+  const onGeoButtonClick = () => {
+    if (status === 'succeeded') mapObjectAndSetValues(geolocation, setValue);
+    if (error) toast.error(error);
+  };
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>

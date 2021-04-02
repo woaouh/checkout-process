@@ -23,22 +23,14 @@ export default function BillingForm({ onSubmit }) {
     register, handleSubmit, setValue, errors,
   } = useForm({ defaultValues: userInfo.billing, resolver: yupResolver(billingSchema) });
 
-  function onSameAsShippingClick() {
-    mapObjectAndSetValues(userInfo.shipping, setValue);
-  }
+  const onSameAsShippingClick = () => mapObjectAndSetValues(userInfo.shipping, setValue);
 
-  function onValueChange({ target }) {
-    setValue(target.name, target.value);
-  }
+  const onValueChange = ({ target }) => setValue(target.name, target.value);
 
-  function onGeoButtonClick() {
-    if (status === 'succeeded') {
-      mapObjectAndSetValues(geolocation, setValue);
-    }
-    if (error) {
-      toast.error(error);
-    }
-  }
+  const onGeoButtonClick = () => {
+    if (status === 'succeeded') mapObjectAndSetValues(geolocation, setValue);
+    if (error) toast.error(error);
+  };
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
