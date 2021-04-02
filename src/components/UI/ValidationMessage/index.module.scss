@@ -1,0 +1,30 @@
+.message {
+  background-color: #fff;
+  border: 1px solid rgba(222, 220, 220, 0.695907);
+  border-radius: 5px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  color: #d0021b;
+  font-size: 13px;
+  font-weight: 300;
+  left: -12px;
+  padding: 7px 12px;
+  pointer-events: none;
+  position: absolute;
+  top: -35px;
+  z-index: 1;
+
+  &::after {
+    background-color: #fff;
+    border: 1px solid rgba(222, 220, 220, 0.695907);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    bottom: -9px;
+    content: '';
+    height: 16px;
+    left: 20px;
+    position: absolute;
+    transform: rotate(135deg);
+    width: 16px;
+    z-index: -1;
+  }
+}
