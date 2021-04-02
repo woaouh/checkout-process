@@ -1,11 +1,7 @@
-export function isObjectKeysFalse(obj) {
-  return Object.keys(obj).every((key) => !obj[key]);
-}
+export const isObjectKeysFalse = (obj) => Object.keys(obj).every((key) => !obj[key]);
 
-export function calcArrayTotalItemValue(arr, value) {
-  return arr.reduce((acc, item) => item[value] + acc, 0);
-}
+export const calcArrayTotalItemValue = (arr, val) => arr.reduce((acc, item) => item[val] + acc, 0);
 
-export function mapObjectAndSetValues(obj, cb) {
-  Object.keys(obj).map((key) => cb(key, obj[key]));
-}
+export const mapObjectAndSetValues = (obj, cb) => Object.keys(obj).map((key) => cb(key, obj[key]));
+
+export const getErrorMessage = (errors, name) => errors[name]?.message && errors[name]?.message;
