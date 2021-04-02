@@ -1,20 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ValidationMessage from '../ValidationMessage';
+
 import classes from './index.module.scss';
 
 export default function Input({
-  type, name, onChange, placeholder, register, required,
+  type, name, onChange, placeholder, register, message,
 }) {
   return (
-    <input
-      className={classes.input}
-      name={name}
-      type={type}
-      onChange={onChange}
-      placeholder={placeholder}
-      ref={register({ required })}
-    />
+    <div className={classes.input_wrapper}>
+      {message && <ValidationMessage>{message}</ValidationMessage>}
+      <input
+        className={classes.input}
+        name={name}
+        type={type}
+        onChange={onChange}
+        placeholder={placeholder}
+        ref={register}
+      />
+    </div>
   );
 }
 
@@ -24,10 +29,10 @@ Input.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string.isRequired,
   register: PropTypes.func.isRequired,
-  required: PropTypes.bool,
+  message: PropTypes.string,
 };
 
 Input.defaultProps = {
   onChange: () => {},
-  required: false,
+  message: '',
 };

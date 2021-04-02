@@ -1,21 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ValidationMessage from '../ValidationMessage';
+
 import classes from './index.module.scss';
 
 export default function Select({
-  name, onChange, options, register, required,
+  name, onChange, options, register, message,
 }) {
   return (
-    <select
-      name={name}
-      className={classes.select}
-      onChange={onChange}
-      ref={register({ required })}
-    >
-      <option value="" disabled>Country</option>
-      {options.map((option) => <option key={option} value={option}>{option}</option>)}
-    </select>
+    <div className={classes.select_wrapper}>
+      {message && <ValidationMessage>{message}</ValidationMessage>}
+      <select
+        name={name}
+        className={classes.select}
+        onChange={onChange}
+        ref={register}
+      >
+        <option value="" disabled>Country</option>
+        {options.map((option) => <option key={option} value={option}>{option}</option>)}
+      </select>
+    </div>
   );
 }
 
@@ -24,10 +29,10 @@ Select.propTypes = {
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   register: PropTypes.func.isRequired,
-  required: PropTypes.bool,
+  message: PropTypes.string,
 };
 
 Select.defaultProps = {
   onChange: () => {},
-  required: false,
+  message: '',
 };
