@@ -56,19 +56,15 @@ export const checkoutSlice = createSlice({
     activeStep: 0,
   },
   reducers: {
-    setActiveStep(state, action) {
-      state.activeStep = action.payload;
-    },
-    setUserInfo(state, action) {
+    setActiveStep: (state, action) => { state.activeStep = action.payload; },
+    setUserInfo: (state, action) => {
       const activeStage = state.formStages[state.activeStep];
       state.userInfo[activeStage] = action.payload;
       state.activeStep += 1;
     },
   },
   extraReducers: {
-    [fetchGeocodedLocation.pending]: (state) => {
-      state.status = 'loading';
-    },
+    [fetchGeocodedLocation.pending]: (state) => { state.status = 'loading'; },
     [fetchGeocodedLocation.fulfilled]: (state, action) => {
       state.status = 'succeeded';
 
