@@ -29,7 +29,8 @@
     "lint": "./node_modules/.bin/eslint . --ext .js --ext .jsx",
     "lint-styles": "./node_modules/.bin/stylelint 'src/**/*.scss'",
     "lint-styles-fix": "./node_modules/.bin/stylelint 'src/**/*.scss' --fix",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -54,6 +55,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^6.0.0",
     "stylelint": "^13.12.0",
     "stylelint-config-sass-guidelines": "^8.0.0",
     "stylelint-scss": "^3.19.0"
