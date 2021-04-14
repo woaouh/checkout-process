@@ -15,9 +15,10 @@ import classes from './index.module.scss';
 
 const PaymentForm = ({ onSubmit }) => {
   const { userInfo } = useSelector(({ checkout }) => checkout);
-  const {
-    register, handleSubmit, setValue, errors,
-  } = useForm({ defaultValues: userInfo.payment, resolver: yupResolver(paymentSchema) });
+  const { register, handleSubmit, setValue, errors } = useForm({
+    defaultValues: userInfo.payment,
+    resolver: yupResolver(paymentSchema),
+  });
 
   const onValueChange = ({ target }) => setValue(target.name, target.value);
 
@@ -42,8 +43,18 @@ const PaymentForm = ({ onSubmit }) => {
         <Lock />
         <p>This is a secure 128-bit SSL encrypted payment</p>
       </div>
-      {renderInput('text', 'cc-name', 'Cardholder Name', 'Name as it appears on your card')}
-      {renderInput('number', 'cc-number', 'Cardholder Number', 'XXXX XXXX XXXX XXXX XXXX')}
+      {renderInput(
+        'text',
+        'cc-name',
+        'Cardholder Name',
+        'Name as it appears on your card'
+      )}
+      {renderInput(
+        'number',
+        'cc-number',
+        'Cardholder Number',
+        'XXXX XXXX XXXX XXXX XXXX'
+      )}
       <div className={classes.input_container}>
         <div>{renderInput('text', 'cc-exp', 'Expire Date', 'MM / YY')}</div>
         <div>{renderInput('number', 'cc-csc', 'Security Cod', '')}</div>

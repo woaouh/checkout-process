@@ -19,7 +19,9 @@ const CompletedOrder = () => {
         Estimated delivery Day is
         <span className={classes.date}>Friday 1st April 2016</span>
       </p>
-      <Button type="button" simple>Print Recipe</Button>
+      <Button type="button" simple>
+        Print Recipe
+      </Button>
     </div>
   );
 };

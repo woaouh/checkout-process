@@ -4,19 +4,23 @@ import ValidationMessage from '../ValidationMessage';
 
 import classes from './index.module.scss';
 
-const Select = ({
-  name, onChange, options, register, message,
-}) => (
+const Select = ({ name, onChange, options, register, message }) => (
   <div className={classes.select_wrapper}>
     {message && <ValidationMessage>{message}</ValidationMessage>}
     <select
       name={name}
       className={classes.select}
-      onChange={onChange}
+      onBlur={onChange}
       ref={register}
     >
-      <option value="" disabled>Country</option>
-      {options.map((option) => <option key={option} value={option}>{option}</option>)}
+      <option value="" disabled>
+        Country
+      </option>
+      {options.map((option) => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
     </select>
   </div>
 );

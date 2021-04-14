@@ -14,10 +14,10 @@ import COUNTRIES from '../../../assets/countries';
 
 import classes from './index.module.scss';
 
-const AddressForm = ({
-  register, errors, onChange, setValue,
-}) => {
-  const { status, error, geolocation } = useSelector(({ checkout }) => checkout);
+const AddressForm = ({ register, errors, onChange, setValue }) => {
+  const { status, error, geolocation } = useSelector(
+    ({ checkout }) => checkout
+  );
 
   const onGeoButtonClick = () => {
     if (status === 'succeeded') mapObjectAndSetValues(geolocation, setValue);

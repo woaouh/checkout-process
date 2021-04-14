@@ -7,9 +7,7 @@ import { setActiveStep } from '../../../redux/checkoutSlice';
 
 import classes from './index.module.scss';
 
-const Crumb = ({
-  stage, path, exact, step,
-}) => {
+const Crumb = ({ stage, path, exact, step }) => {
   const dispatch = useDispatch();
   const { activeStep } = useSelector(({ checkout }) => checkout);
 
@@ -21,7 +19,12 @@ const Crumb = ({
 
   return (
     <li className={className}>
-      <NavLink to={path} activeClassName={classes.active} exact={exact} onClick={completeStep}>
+      <NavLink
+        to={path}
+        activeClassName={classes.active}
+        exact={exact}
+        onClick={completeStep}
+      >
         {stage}
       </NavLink>
     </li>

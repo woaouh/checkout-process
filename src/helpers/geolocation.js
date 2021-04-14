@@ -4,7 +4,8 @@ const getLocation = new Promise((resolve, reject) => {
   }
 
   navigator.geolocation.getCurrentPosition(
-    ({ coords }) => resolve({ latitude: coords.latitude, longitude: coords.longitude }),
+    ({ coords }) =>
+      resolve({ latitude: coords.latitude, longitude: coords.longitude }),
 
     (error) => reject(error),
 
@@ -12,7 +13,7 @@ const getLocation = new Promise((resolve, reject) => {
       enableHighAccuracy: false,
       timeout: 5000,
       maximumAge: 0,
-    },
+    }
   );
 });
 

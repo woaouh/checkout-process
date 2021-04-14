@@ -14,9 +14,10 @@ import classes from './index.module.scss';
 
 const ShippingForm = ({ onSubmit }) => {
   const { userInfo } = useSelector(({ checkout }) => checkout);
-  const {
-    register, handleSubmit, setValue, errors,
-  } = useForm({ defaultValues: userInfo.shipping, resolver: yupResolver(shippingSchema) });
+  const { register, handleSubmit, setValue, errors } = useForm({
+    defaultValues: userInfo.shipping,
+    resolver: yupResolver(shippingSchema),
+  });
 
   const onValueChange = ({ target }) => setValue(target.name, target.value);
 

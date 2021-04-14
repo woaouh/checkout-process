@@ -26,10 +26,10 @@ const Form = ({ steps }) => {
   );
 
   const formSteps = [
-    <ShippingForm onSubmit={onFormSubmit} />,
-    <BillingForm onSubmit={onFormSubmit} />,
-    <PaymentForm onSubmit={onFormSubmit} />,
-    <CompletedOrder />,
+    <ShippingForm onSubmit={onFormSubmit} key={0} />,
+    <BillingForm onSubmit={onFormSubmit} key={1} />,
+    <PaymentForm onSubmit={onFormSubmit} key={2} />,
+    <CompletedOrder key={3} />,
   ];
 
   return formSteps.map((component, i) => renderRoute(i, component));

@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 
 import classes from './index.module.scss';
 
-const SummaryItem = ({
-  name, img, quantity, type, price,
-}) => (
+const SummaryItem = ({ name, img, quantity, type, price }) => (
   <li key={name} className={classes.cart_item}>
-    <div className={classes.image_container}><img src={img} alt={name} /></div>
+    <div className={classes.image_container}>
+      <img src={img} alt={name} />
+    </div>
     <div className={classes.item_description}>
       <span className={classes.item_name}>{name}</span>
       <span>{type}</span>

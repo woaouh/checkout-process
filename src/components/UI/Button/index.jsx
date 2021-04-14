@@ -4,9 +4,7 @@ import classNames from 'classnames';
 
 import classes from './index.module.scss';
 
-const Button = ({
-  type, children, onClick, simple, geo,
-}) => (
+const Button = ({ type, children, onClick, simple, geo }) => (
   <button
     type={type}
     onClick={onClick}
@@ -21,7 +19,8 @@ const Button = ({
 
 Button.propTypes = {
   type: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
+    .isRequired,
   onClick: PropTypes.func,
   simple: PropTypes.bool,
   geo: PropTypes.bool,

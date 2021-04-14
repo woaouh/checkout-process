@@ -14,11 +14,13 @@ import classes from './index.module.scss';
 
 const BillingForm = ({ onSubmit }) => {
   const { userInfo } = useSelector(({ checkout }) => checkout);
-  const {
-    register, handleSubmit, setValue, errors,
-  } = useForm({ defaultValues: userInfo.billing, resolver: yupResolver(billingSchema) });
+  const { register, handleSubmit, setValue, errors } = useForm({
+    defaultValues: userInfo.billing,
+    resolver: yupResolver(billingSchema),
+  });
 
-  const onSameAsShippingClick = () => mapObjectAndSetValues(userInfo.shipping, setValue);
+  const onSameAsShippingClick = () =>
+    mapObjectAndSetValues(userInfo.shipping, setValue);
 
   const onValueChange = ({ target }) => setValue(target.name, target.value);
 
@@ -26,7 +28,9 @@ const BillingForm = ({ onSubmit }) => {
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={classes.title_container}>
         <h2>Billing Information</h2>
-        <Button onClick={onSameAsShippingClick} simple>Same as shipping</Button>
+        <Button onClick={onSameAsShippingClick} simple>
+          Same as shipping
+        </Button>
       </div>
       <p className={classes.label}>Billing Contact</p>
       <Input

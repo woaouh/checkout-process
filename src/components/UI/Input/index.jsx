@@ -4,9 +4,7 @@ import ValidationMessage from '../ValidationMessage';
 
 import classes from './index.module.scss';
 
-const Input = ({
-  type, name, onChange, placeholder, register, message,
-}) => (
+const Input = ({ type, name, onChange, placeholder, register, message }) => (
   <div className={classes.input_wrapper}>
     {message && <ValidationMessage>{message}</ValidationMessage>}
     <input
