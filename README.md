@@ -16,4 +16,4 @@ In process...
 ## Links
 
 - [Test task](https://github.com/fs/test-tasks/tree/master/front-end)
-- [Live project](https://reverent-mayer-a8d472.netlify.app)
+- [Live project](https://ecstatic-einstein-49f4a8.netlify.app/)
