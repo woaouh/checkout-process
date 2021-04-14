@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,7 +12,7 @@ import { billingSchema } from '../../../helpers/validation';
 
 import classes from './index.module.scss';
 
-export default function BillingForm({ onSubmit }) {
+const BillingForm = ({ onSubmit }) => {
   const { userInfo } = useSelector(({ checkout }) => checkout);
   const {
     register, handleSubmit, setValue, errors,
@@ -56,8 +55,10 @@ export default function BillingForm({ onSubmit }) {
       <Button type="submit">Continue</Button>
     </form>
   );
-}
+};
 
 BillingForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+export default BillingForm;

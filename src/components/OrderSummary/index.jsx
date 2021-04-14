@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SummaryItem from './SummaryItem';
 import OrderReport from './OrderReport';
 import Button from '../UI/Button';
@@ -14,19 +12,31 @@ import classes from './index.module.scss';
 
 const cartItems = [
   {
-    name: 'The Chelsea Boot', img: shoe, type: 'Black', quantity: 1, price: 235,
+    name: 'The Chelsea Boot',
+    img: shoe,
+    type: 'Black',
+    quantity: 1,
+    price: 235,
   },
   {
-    name: 'The Twill Snap Backpack', img: backpack, type: 'Reverse Denim + Brown leather', quantity: 1, price: 65,
+    name: 'The Twill Snap Backpack',
+    img: backpack,
+    type: 'Reverse Denim + Brown leather',
+    quantity: 1,
+    price: 65,
   },
   {
-    name: 'The Twill Zip Tote', img: bag, type: 'Reverse Denim + Black leather', quantity: 1, price: 48,
+    name: 'The Twill Zip Tote',
+    img: bag,
+    type: 'Reverse Denim + Black leather',
+    quantity: 1,
+    price: 48,
   },
 ];
 
 const taxes = 12.12;
 
-export default function OrderSummary() {
+const OrderSummary = () => {
   const totalPrice = calcArrayTotalItemValue(cartItems, 'price');
 
   return (
@@ -47,7 +57,13 @@ export default function OrderSummary() {
           />
         ))}
       </ul>
-      <OrderReport subtotal={totalPrice} total={totalPrice + taxes} taxes={taxes} />
+      <OrderReport
+        subtotal={totalPrice}
+        total={totalPrice + taxes}
+        taxes={taxes}
+      />
     </div>
   );
-}
+};
+
+export default OrderSummary;

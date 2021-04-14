@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,7 +13,7 @@ import { getErrorMessage } from '../../../helpers';
 
 import classes from './index.module.scss';
 
-export default function PaymentForm({ onSubmit }) {
+const PaymentForm = ({ onSubmit }) => {
   const { userInfo } = useSelector(({ checkout }) => checkout);
   const {
     register, handleSubmit, setValue, errors,
@@ -52,8 +51,10 @@ export default function PaymentForm({ onSubmit }) {
       <Button type="submit">Pay Securely</Button>
     </form>
   );
-}
+};
 
 PaymentForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+export default PaymentForm;

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
@@ -10,14 +9,14 @@ import Toast from '../../UI/Toast';
 import Loader from '../../UI/Loader';
 
 import { ReactComponent as Geo } from '../../../assets/svg/geolocation.svg';
+import { mapObjectAndSetValues, getErrorMessage } from '../../../helpers';
 import COUNTRIES from '../../../assets/countries';
 
 import classes from './index.module.scss';
-import { mapObjectAndSetValues, getErrorMessage } from '../../../helpers';
 
-export default function AddressForm({
+const AddressForm = ({
   register, errors, onChange, setValue,
-}) {
+}) => {
   const { status, error, geolocation } = useSelector(({ checkout }) => checkout);
 
   const onGeoButtonClick = () => {
@@ -78,7 +77,7 @@ export default function AddressForm({
       {error && <Toast />}
     </div>
   );
-}
+};
 
 AddressForm.propTypes = {
   register: PropTypes.func.isRequired,
@@ -86,3 +85,5 @@ AddressForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   setValue: PropTypes.func.isRequired,
 };
+
+export default AddressForm;

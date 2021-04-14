@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,7 +12,7 @@ import { getErrorMessage } from '../../../helpers';
 
 import classes from './index.module.scss';
 
-export default function ShippingForm({ onSubmit }) {
+const ShippingForm = ({ onSubmit }) => {
   const { userInfo } = useSelector(({ checkout }) => checkout);
   const {
     register, handleSubmit, setValue, errors,
@@ -58,8 +57,10 @@ export default function ShippingForm({ onSubmit }) {
       <Button type="submit">Continue</Button>
     </form>
   );
-}
+};
 
 ShippingForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+export default ShippingForm;
