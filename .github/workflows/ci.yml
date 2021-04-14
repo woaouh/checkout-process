@@ -8,7 +8,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - run: make install
-      - run: make editorconfig
-      - run: make lint
-      - run: make lint-styles
+      - run: npm ci
+      - run: npm run editorconfig
+      - run: npm run lint
+      - run: npm run stylelint
+      - run: npm run prettier
