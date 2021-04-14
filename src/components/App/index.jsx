@@ -8,7 +8,7 @@ import { fetchGeocodedLocation } from '../../redux/checkoutSlice';
 
 const App = () => {
   const dispatch = useDispatch();
-  useEffect(() => dispatch(fetchGeocodedLocation()), []);
+  useEffect(() => dispatch(fetchGeocodedLocation()), [dispatch]);
 
   return (
     <>
