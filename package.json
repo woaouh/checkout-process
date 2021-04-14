@@ -25,6 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:check": "npm test -- --watchAll=false",
     "editorconfig": "editorconfig-checker",
     "lint": "./node_modules/.bin/eslint . --ext .js --ext .jsx",
     "stylelint": "./node_modules/.bin/stylelint \"**/*.scss\"",
